@@ -16,6 +16,7 @@ import ManageTask from "../pages/Manage/task";
 import ManageResign from "../pages/Manage/resign";
 import Logistics from "../pages/logistics";
 import Communication from "../pages/communication";
+import MessageDetail from "../pages/detail/Message";
 export const mainRouter = [
   {
     path: "/home",
@@ -23,7 +24,7 @@ export const mainRouter = [
     component: DashBoard,
   },
   {
-    path: "/login",
+    path: "/",
     name: "LoginPage",
     component: LoginPage
   },
@@ -36,7 +37,7 @@ export const mainRouter = [
 
 export const DashRouter = [
   {
-    path: "/home/personal",
+    path: "/home/person",
     name: "Personal",
     component: Personal,
     routes: [
@@ -113,5 +114,10 @@ export const DashRouter = [
     path: "/home/communication",
     name: "Communication",
     component: Communication
+  },
+  {
+    path: "/home/detail/message/:id",
+    name: "MessageDetail",
+    component: MessageDetail
   }
 ];

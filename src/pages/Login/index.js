@@ -12,12 +12,13 @@ const tailLayout = {
 export default function Login() {
     const history = useHistory();
     const onFinish = values => {
-        values.name = "WJ";
-        React.$http.post("/",values).then(res => {
+        /* React.$http.post("/",values).then(res => {
             if (res.status === 200) {
-                history.push(`/home/${values.JobId}`);
+                history.push("/home");
             }
-        });
+        }); */
+        console.log(values);
+        history.push("/home");
     };
 
     const onFinishFailed =() => {
