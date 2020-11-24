@@ -4,7 +4,7 @@ import MenuItem from "antd/lib/menu/MenuItem";
 import { RouteWithSubRoutes } from "../../routers/index";
 import { DashRouter } from "../../routers/config";
 import { Menu, Layout } from "antd";
-import { NavLink } from "react-router-dom";
+import { NavLink, Switch } from "react-router-dom";
 const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 export default function DashBoard() {
@@ -39,15 +39,24 @@ export default function DashBoard() {
 						}
 					</Menu>
 				</Sider>
-				<Content>
-					{
-						DashRouter.map((route, i) => (
-							<RouteWithSubRoutes key={i} {...route}></RouteWithSubRoutes>
-						))
-					}
+				<Content
+					style={{
+						margin: "30px 20px",
+						backgroundColor: "#f5f5f5",
+						borderRadius: "6px",
+						boxShadow: "0 0 10px 8px #fff",
+						padding: "20px"
+					}}>
+					<Switch>
+						{
+							DashRouter.map((route, i) => (
+								<RouteWithSubRoutes key={i} {...route}></RouteWithSubRoutes>
+							))
+						}
+					</Switch>
 				</Content>
 			</Layout>
-			<Footer style={{ backgroundColor: "#434343" }}>Footer</Footer>
+			<Footer style={{ backgroundColor: "#434343", textAlign: "center", color: "#fff", fontSize: "16px"}}>Copyright © 2020 管家婆后台管理系统</Footer>
 		</Layout>
 	);
 }

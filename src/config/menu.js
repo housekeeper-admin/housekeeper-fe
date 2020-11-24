@@ -1,7 +1,7 @@
 export default [
   {
     title: "首页",
-    key: "/home"
+    key: "/home/person"
   },
   {
     title: "个人中心",
@@ -30,6 +30,10 @@ export default [
       {
         title: "离职申请",
         key: "/home/person/resign"
+      },
+      {
+        title: "任务查看",
+        key: "/home/person/task"
       }
     ]
   },
