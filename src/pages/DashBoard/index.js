@@ -1,8 +1,10 @@
 import React from "react";
-import { Menu, Layout } from "antd";
-import { NavLink } from "react-router-dom";
 import MenuList from "../../config/menu";
 import MenuItem from "antd/lib/menu/MenuItem";
+import { RouteWithSubRoutes } from "../../routers/index";
+import { DashRouter } from "../../routers/config";
+import { Menu, Layout } from "antd";
+import { NavLink } from "react-router-dom";
 const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 export default function DashBoard() {
@@ -37,7 +39,13 @@ export default function DashBoard() {
 						}
 					</Menu>
 				</Sider>
-				<Content></Content>
+				<Content>
+					{
+						DashRouter.map((route, i) => (
+							<RouteWithSubRoutes key={i} {...route}></RouteWithSubRoutes>
+						))
+					}
+				</Content>
 			</Layout>
 			<Footer style={{ backgroundColor: "#434343" }}>Footer</Footer>
 		</Layout>

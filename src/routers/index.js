@@ -1,7 +1,7 @@
-import RoutesList from "./config";
+import {mainRouter} from "./config";
 import { HashRouter, Route, Switch} from "react-router-dom";
 import React from "react";
-function RouteWithSubRoutes(route) {
+export function RouteWithSubRoutes(route) {
   return (
     <Route
       path={route.path}
@@ -16,7 +16,7 @@ const BasicRoute = () => (
   <HashRouter>
     <Switch>
       {
-        RoutesList.map((route, i) => (
+        mainRouter.map((route, i) => (
           <RouteWithSubRoutes key={i} {...route}></RouteWithSubRoutes>
         ))
       }

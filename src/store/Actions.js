@@ -1,4 +1,4 @@
-import {UPDATE_LOGIN_STATUS} from "./ActionTypes";
+import { UPDATE_LOGIN_STATUS } from "./ActionTypes";
 const types = [
   {
     type: UPDATE_LOGIN_STATUS,
