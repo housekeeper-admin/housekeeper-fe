@@ -19,12 +19,12 @@ import Communication from "../pages/communication";
 import MessageDetail from "../pages/detail/Message";
 export const mainRouter = [
   {
-    path: "/home",
+    path: "/",
     name: "DashBoard",
     component: DashBoard,
   },
   {
-    path: "/",
+    path: "/login",
     name: "LoginPage",
     component: LoginPage
   },

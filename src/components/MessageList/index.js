@@ -8,8 +8,13 @@ export default function MessageList() {
   function handleDelete(id) {
     console.log(id);
   }
+  /**
+   * 获取消息详情
+   * @param {object} item 
+   */
   function handleMore(item) {
     console.log(item.id + "more");
+    React.$storage.set({key:"mesage-router",value: item });
     history.push({pathname:`/home/detail/message/${item.id}`,state:item});
   }
   return (

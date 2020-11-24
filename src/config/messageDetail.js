@@ -108,5 +108,6 @@ export default {
   
   
   久而久之，就能训练出来你的快速思考和行动的能力来了。`,
-  link: "https://zhuanlan.zhihu.com/p/40115600"
+  link: "https://zhuanlan.zhihu.com/p/40115600",
+  time: new Date()
 };
