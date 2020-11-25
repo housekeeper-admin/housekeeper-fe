@@ -1,6 +1,8 @@
 import React from "react";
 import { Input, Space, Button, Form, Checkbox } from "antd";
 import { useHistory } from "react-router-dom";
+import { user } from "../../store/ActionTypes";
+import store from "../../store/index";
 import "./index.less";
 const layout = {
     labelCol: { span: 4 },
@@ -10,6 +12,7 @@ const tailLayout = {
     wrapperCol: { offset: 4, span: 20 },
 };
 export default function Login() {
+    const UpdateLogin = user.UPDATE_LOGIN_STATUS;
     const history = useHistory();
     const onFinish = values => {
         /* React.$http.post("/",values).then(res => {
@@ -17,12 +20,26 @@ export default function Login() {
                 history.push("/home");
             }
         }); */
-        console.log(values);
+        const action = {
+            type: UpdateLogin,
+            value: {
+                userName: "Lucy",
+                jobId: values.JobId,
+                token: {
+                    key: "hello",
+                    value: "index"
+                }
+            }
+        };
+        store.dispatch(action);
+        store.subscribe(() =>
+            console.log(store.getState())
+        );
         history.push("/home");
     };
 
-    const onFinishFailed =() => {
-        
+    const onFinishFailed = () => {
+
     };
     const validateMessages = {
         required: "'${name}' 是必选字段",
