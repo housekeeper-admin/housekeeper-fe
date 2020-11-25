@@ -64,7 +64,7 @@ export default [
     key: "/home/logistics"
   },
   {
-    title: "企业通讯录",
-    key: "/home/communication"
+    title: "文档发布",
+    key: "/home/editor"
   }
 ];

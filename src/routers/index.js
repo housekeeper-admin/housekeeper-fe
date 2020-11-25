@@ -12,8 +12,9 @@ export function RouteWithSubRoutes(route) {
     />
   );
 }
-const BasicRoute = () => (
-  <HashRouter>
+const BasicRoute = () => {
+  return (
+    <HashRouter>
     <Switch>
       {
         mainRouter.map((route, i) => (
@@ -22,7 +23,8 @@ const BasicRoute = () => (
       }
     </Switch>
   </HashRouter>
-);
+  );
+};
 
 
 export default BasicRoute;

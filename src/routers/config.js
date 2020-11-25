@@ -15,11 +15,11 @@ import ManageAskLeave from "../pages/Manage/askleave";
 import ManageTask from "../pages/Manage/task";
 import ManageResign from "../pages/Manage/resign";
 import Logistics from "../pages/logistics";
-import Communication from "../pages/communication";
+import Editor from "../pages/Editor";
 import MessageDetail from "../pages/detail/Message";
 export const mainRouter = [
   {
-    path: "/",
+    path: "/home",
     name: "DashBoard",
     component: DashBoard,
   },
@@ -111,9 +111,9 @@ export const DashRouter = [
     component: Logistics
   },
   {
-    path: "/home/communication",
-    name: "Communication",
-    component: Communication
+    path: "/home/editor",
+    name: "Editor",
+    component: Editor
   },
   {
     path: "/home/detail/message/:id",

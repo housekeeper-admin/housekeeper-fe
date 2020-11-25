@@ -8,7 +8,7 @@ export default function NoMatch() {
       title="404"
       subTitle="您的页面走丢了"
       extra={<Button type="primary">
-        <Link to={"/home"}>Back Home</Link>
+        <Link to={"/home/personal"}>Back Home</Link>
       </Button>}
     />
   );
