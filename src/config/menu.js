@@ -1,7 +1,7 @@
 export default [
   {
     title: "首页",
-    key: "/home/person"
+    key: "/home/center"
   },
   {
     title: "个人中心",

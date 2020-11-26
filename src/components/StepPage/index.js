@@ -2,24 +2,24 @@ import { Steps, Button, message } from "antd";
 import React, { Fragment } from "react";
 const { Step } = Steps;
 
-const steps = [
-  {
-    title: "First",
-    content: "First-content",
-  },
-  {
-    title: "Second",
-    content: "Second-content",
-  },
-  {
-    title: "Last",
-    content: "Last-content",
-  },
-];
 
-export default function StepPage() {
+export default function StepPage(prop) {
+  console.log(prop);
   const [current, setCurrent] = React.useState(0);
-
+  const steps = [
+    {
+      title: "确认入职信息",
+      content: prop.step1,
+    },
+    {
+      title: "填写个人信息",
+      content: prop.step2,
+    },
+    {
+      title: "输入个人登录密码",
+      content: prop.step3,
+    },
+  ];
   const next = () => {
     setCurrent(current + 1);
   };
@@ -35,20 +35,25 @@ export default function StepPage() {
         ))}
       </Steps>
       <div className="steps-content">{steps[current].content}</div>
-      <div className="steps-action">
+      <div className="steps-action" style={{
+        textAlign: "center"
+      }}>
+        {current > 0 && (
+          <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
+            上一步
+          </Button>
+        )}
         {current < steps.length - 1 && (
           <Button type="primary" onClick={() => next()}>
-            Next
+            下一步
           </Button>
         )}
         {current === steps.length - 1 && (
-          <Button type="primary" onClick={() => message.success("Processing complete!")}>
-            Done
-          </Button>
-        )}
-        {current > 0 && (
-          <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
-            Previous
+          <Button type="primary" onClick={() => {
+            prop.success.callBack();
+            return message.success(prop.success.message);
+          }}>
+            完成
           </Button>
         )}
       </div>
