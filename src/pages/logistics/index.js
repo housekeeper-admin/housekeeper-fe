@@ -16,7 +16,7 @@ export default function Logistics() {
 
   return (
     <Fragment>
-      <BasicTable data={data} columns={columns} />
+      <BasicTable data={data} columns={columns} placeholder="搜索指定部门" />
     </Fragment>
   );
 }

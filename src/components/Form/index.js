@@ -1,7 +1,8 @@
-import { Form, Input, Select, Radio, Button, message, Result } from "antd";
+import { Form, Input, Select, DatePicker, Radio, Button, message, Result, } from "antd";
 import { SmileOutlined } from "@ant-design/icons";
 import React, { Fragment, useState } from "react";
 const { Option } = Select;
+const { RangePicker } = DatePicker;
 const layout = {
   labelCol: { span: 10 },
   wrapperCol: { span: 8 },
@@ -25,8 +26,8 @@ export default function FormPage(prop) {
     message.success("提交成功啦");
     setstate(true);
   };
-  console.log(prop.option);
-  const { input = [], select = [], radio = [] } = prop.option;
+  console.log(prop);
+  const { input = {}, select = [], radio = [], timePicker = [] } = prop.option;
   return (
     <Fragment>
       {
@@ -34,14 +35,15 @@ export default function FormPage(prop) {
           <Result
             icon={<SmileOutlined />}
             title="很好，我们将尽快为您处理~~"
+            extra={prop.result && (prop.result.slot?<Button onClick={()=>{setstate(false);}}>{prop.result.msg || "完成"}</Button>:"")}
           /> :
           <Form {...layout} name={prop.name} onFinish={onFinish} validateMessages={validateMessages} style={prop.style}>
             <Form.Item label="表单类型">
               <span className="ant-form-text">{prop.option.name}</span>
             </Form.Item>
             {
-              input.list.map((item, index) => (
-                <Form.Item name={[input.type, item.name]} key={"input-" + index} label={item.label} rules={[item.rules]}>
+              input.list && input.list.map((item, index) => (
+                <Form.Item name={[input.type, item.name]} key={"input-" + index} label={item.label} rules={item.rules}>
                   <Input />
                 </Form.Item>
               ))
@@ -64,7 +66,7 @@ export default function FormPage(prop) {
                 <Form.Item rules={[{ required: true, message: "请务必选择一项" }]} name={radioItem.name} key={"radio-" + index} label={radioItem.label} >
                   <Radio.Group placeholder={radioItem.placeholder}>
                     {
-                      radioItem.list.map((item, index) => (
+                      radioItem.list && radioItem.list.map((item, index) => (
                         <Radio.Button value={item.value} key={"option-" + index}>{item.name}</Radio.Button>
                       ))
                     }
@@ -72,10 +74,24 @@ export default function FormPage(prop) {
                 </Form.Item>
               ))
             }
+            {
+              timePicker && timePicker.map((item, index) => (
+                <Form.Item label={item.label} rules={[{ required: true, message: "请选择时间" }]} name={item.name} key={"dataPicker-"+index}>
+                  {
+                    item.type !== "range" ?
+                      <DatePicker showTime/> :
+                      <RangePicker
+                        showTime={{ format: "HH:mm" }}
+                        format="YYYY-MM-DD HH:mm"
+                      />
+                  }
+                </Form.Item>
+              ))
+            }
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 10 }}>
               <Button type="primary" htmlType="submit">
                 提交
-        </Button>
+              </Button>
             </Form.Item>
           </Form>
       }
