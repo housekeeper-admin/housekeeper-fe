@@ -25,11 +25,11 @@ export default [
       },
       {
         title: "离职申请",
-        key: "/home/person/resign"
+        key: "/home/personal/resign"
       },
       {
         title: "任务查看",
-        key: "/home/person/task"
+        key: "/home/personal/task"
       }
     ]
   },

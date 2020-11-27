@@ -39,7 +39,7 @@ export default function FormPage(prop) {
             extra={prop.result && (prop.result.slot?<Button onClick={()=>{setstate(false);}}>{prop.result.msg || "完成"}</Button>:"")}
           /> :
           <Form {...layout} name={prop.name} onFinish={onFinish} validateMessages={validateMessages} style={prop.style}>
-            <Form.Item label="表单类型">
+            <Form.Item label="类型">
               <span className="ant-form-text">{prop.option.name}</span>
             </Form.Item>
             {
