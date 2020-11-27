@@ -1,7 +1,11 @@
 import React from "react";
 import { Chart, Line, Point, Tooltip } from "bizcharts";
-import { Row, Col, Divider } from "antd";
+import { Row, Col, Divider, Steps, List, PageHeader } from "antd";
 import data from "../../../config/personalAttendance";
+import RessiueForm from "../../../components/Form/index";
+import personalReissue from "../../../config/personal.reissue";
+import stepList from "../../../config/attendance.step.list";
+const { Step } = Steps;
 const scale = {
   time: { min: 6, max: 24, tickCount: 9, },
   type: {
@@ -20,10 +24,10 @@ export default function Attendance() {
       padding: "10px 15px"
     }}>
       <Row gutter={24}>
-        <Col className="gutter-row" span={12} style={{
+        <Col className="gutter-row" span={12} offset={2} style={{
           backgroundColor: "#fff",
-          borderRadius: "12px",
-          boxShadow: "2px 2px 4px 2px #aaa"
+          borderRadius: "12px 0 0 12px",
+          boxShadow: "0px 2px 4px 2px #69c0ff"
         }}>
           <Divider orientation="left">
             考勤动态图
@@ -34,10 +38,48 @@ export default function Attendance() {
             <Tooltip shared showCrosshairs />
           </Chart>
         </Col>
-        <Col className="gutter-row" span={12}>
-          <div >col-6</div>
+        <Col className="gutter-row" span={8} style={{
+          backgroundColor: "#fff",
+          borderRadius: "0 12px 12px 0",
+          boxShadow: "0px 2px 4px 2px #69c0ff",
+          padding: "60px 20px"
+        }}>
+          <RessiueForm option={personalReissue("王勇", "nj12463")} result={{
+            slot: true,
+            msg: "返回"
+          }}></RessiueForm>
         </Col>
       </Row>
-    </div>
+      <Row>
+        <Col span={20} offset={2} style={{
+          backgroundColor: "#fff",
+          borderRadius: "12px 0 0 12px",
+          boxShadow: "0px 2px 4px 2px #69c0ff",
+          padding: "20px",
+          marginTop: "30px"
+        }}>
+          <PageHeader
+            className="site-page-header"
+            title="补签卡申请记录"
+            subTitle="(仅展示最近一周的记录)"
+          />
+          <List
+            itemLayout="horizontal"
+            dataSource={stepList}
+            renderItem={item => (
+              <List.Item>
+                <Steps current={item.current} status={item.status}>
+                  {
+                    item.steps.map((item, index) => (
+                      <Step title={item.title} key={index} description={item.desc} />
+                    ))
+                  }
+                </Steps>
+              </List.Item>
+            )}
+          />
+        </Col>
+      </Row>
+    </div >
   );
 }
