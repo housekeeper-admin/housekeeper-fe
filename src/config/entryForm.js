@@ -38,7 +38,7 @@ export default function (name, JobId) {
       {
         name: "officeSystem",
         label: "办公系统",
-        placeHolder: "请在与您的主管联系后确定您的办公使用系统",
+        placeholder: "请在与您的主管联系后确定您的办公使用系统",
         list: [
           {
             name: "Windows",
@@ -58,7 +58,7 @@ export default function (name, JobId) {
       {
         name: "residenceType",
         label: "居住类型",
-        placeHolder: "请确认您的住所类型以便公司给予您完整保障",
+        placeholder: "请确认您的住所类型以便公司给予您完整保障",
         list: [
           {
             name: "短租",

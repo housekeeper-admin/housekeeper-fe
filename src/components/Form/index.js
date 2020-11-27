@@ -3,6 +3,7 @@ import { SmileOutlined } from "@ant-design/icons";
 import React, { Fragment, useState } from "react";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
+const { TextArea } = Input;
 const layout = {
   labelCol: { span: 10 },
   wrapperCol: { span: 8 },
@@ -27,7 +28,7 @@ export default function FormPage(prop) {
     setstate(true);
   };
   console.log(prop);
-  const { input = {}, select = [], radio = [], timePicker = [] } = prop.option;
+  const { input = {}, select = [], radio = [], timePicker = [], textArea = [] } = prop.option;
   return (
     <Fragment>
       {
@@ -85,6 +86,13 @@ export default function FormPage(prop) {
                         format="YYYY-MM-DD HH:mm"
                       />
                   }
+                </Form.Item>
+              ))
+            }
+            {
+              textArea && textArea.map((item, index) => (
+                <Form.Item label={item.label} rules={item.rules || []} name={item.name} key={"textArea-"+index}>
+                  <TextArea placeholder={item.placeholder} autoSize />
                 </Form.Item>
               ))
             }
