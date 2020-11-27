@@ -1,6 +1,5 @@
 import PersonalEntry from "../pages/Personal/Entry";
 import PersonalAttendance from "../pages/Personal/attendance";
-import PersonalReissue from "../pages/Personal/reissue";
 import PersonalAskLeave from "../pages/Personal/askleave";
 import PersonalResign from "../pages/Personal/resign";
 import PersonalWage from "../pages/Personal/wage";
@@ -15,11 +14,6 @@ export default [
     path: "/home/personal/attendance",
     name: "Attendance",
     component: PersonalAttendance
-  },
-  {
-    path: "/home/personal/reissue",
-    name: "Reissue",
-    component: PersonalReissue
   },
   {
     path: "/home/personal/askleave",

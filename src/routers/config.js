@@ -2,7 +2,7 @@ import DashBoard from "../pages/DashBoard";
 import LoginPage from "../pages/Login";
 import NoMatch from "../pages/NoMatch";
 import Manage from "../pages/Manage";
-import Logistics from "../pages/Logistics";
+import Logistics from "../pages/logistics";
 import Editor from "../pages/Editor";
 import MessageDetail from "../pages/detail/Message";
 import ManageChild from "./manage.child";

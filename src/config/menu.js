@@ -16,10 +16,6 @@ export default [
         key: "/home/personal/attendance"
       },
       {
-        title: "补签申诉",
-        key: "/home/personal/reissue"
-      },
-      {
         title: "请假申请",
         key: "/home/personal/askleave"
       },
