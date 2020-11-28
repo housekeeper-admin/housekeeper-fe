@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { List, Descriptions, Space, Button, message } from "antd";
-import data from "../../../config/resign.manage";
+import data from "../../../mock/resign.manage";
 export default function AskLeave() {
   function success({ id = null, msg = "成功" }) {
     message.success(msg + id);

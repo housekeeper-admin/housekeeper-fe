@@ -35,7 +35,7 @@ export default function Login() {
         store.subscribe(() =>
             console.log(store.getState())
         );
-        history.push("/home");
+        history.push("/home/center");
     };
 
     const onFinishFailed = () => {

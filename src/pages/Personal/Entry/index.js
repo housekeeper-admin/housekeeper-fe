@@ -1,8 +1,8 @@
 import React from "react";
 import StepPart from "../../../components/StepPage/index";
-import offer from "../../../config/offer";
-import step2_formOption from "../../../config/entryForm";
-import step3_formOption from "../../../config/updatepass";
+import offer from "../../../mock/offer";
+import step2_formOption from "../../../config/Form/entry.form";
+import step3_formOption from "../../../config/Form/entry.updatepass.form";
 import form from "../../../components/Form/index";
 import { useHistory } from "react-router-dom";
 export default function Entry() {

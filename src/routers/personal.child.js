@@ -1,8 +1,8 @@
 import PersonalEntry from "../pages/Personal/Entry";
-import PersonalAttendance from "../pages/Personal/attendance";
-import PersonalAskLeave from "../pages/Personal/askleave";
-import PersonalResign from "../pages/Personal/resign";
-import PersonalWage from "../pages/Personal/wage";
+import PersonalAttendance from "../pages/Personal/Attendance";
+import PersonalAskLeave from "../pages/Personal/AskLeave";
+import PersonalResign from "../pages/Personal/Resign";
+import PersonalWage from "../pages/Personal/Wage";
 export default [
   {
     path: "/home/personal/entry",

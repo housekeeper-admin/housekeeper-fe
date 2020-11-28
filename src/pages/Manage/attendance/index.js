@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import BasicTable from "../../../components/Table/index";
-import data from  "../../../config/attendance.manage";
+import data from  "../../../mock/askleave.manage";
 export default function Attendance() {
   const titleArr = ["id", "姓名", "工号", "部门","原因","时间","状态"];
   const columns = [];

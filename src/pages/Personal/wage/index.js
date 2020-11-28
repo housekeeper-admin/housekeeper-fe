@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import CirclChart from "../../../components/CircleChart/index";
-import CurrentData from "../../../config/wage.circlechart";
+import CurrentData from "../../../mock/wage.circlechart";
 import LineChart from "../../../components/linChart/index";
-import historyData from "../../../config/wage.line";
+import historyData from "../../../mock/wage.lineChart";
 import { Card } from "antd";
 const gridStyle = {
   width: "25%",

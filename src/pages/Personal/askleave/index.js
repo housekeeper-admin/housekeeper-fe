@@ -2,9 +2,9 @@ import React, { Fragment } from "react";
 import { List, Card, Row, Col } from "antd";
 import PieChart from "../../../components/PieChart/index";
 import Interval from "../../../components/IntervalChart/index";
-import pieData from "../../../config/pieChart.askLeave";
+import pieData from "../../../mock/pieChart.askLeave";
 import BasicForm from "../../../components/Form/index";
-import FormOption from "../../../config/askforleave.form";
+import FormOption from "../../../config/Form/askforleave.form";
 const data = [
   {
     title: "假期状态图",

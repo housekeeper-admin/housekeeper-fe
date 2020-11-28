@@ -1,10 +1,10 @@
 import React from "react";
 import { Chart, Line, Point, Tooltip } from "bizcharts";
 import { Row, Col, Divider, Steps, List, PageHeader } from "antd";
-import data from "../../../config/personalAttendance";
+import data from "../../../mock/personalAttendance";
 import RessiueForm from "../../../components/Form/index";
-import personalReissue from "../../../config/personal.reissue";
-import stepList from "../../../config/attendance.step.list";
+import personalReissue from "../../../config/Form/reissue.form";
+import stepList from "../../../mock/attendance.step.list";
 const { Step } = Steps;
 const scale = {
   time: { min: 6, max: 24, tickCount: 9, },

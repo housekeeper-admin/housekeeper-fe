@@ -1,6 +1,6 @@
 import { List, Avatar, Button } from "antd";
 import React from "react";
-import list from "../../config/messageList";
+import list from "../../mock/article.list";
 import { DeleteFilled } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
 export default function MessageList() {

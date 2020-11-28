@@ -1,6 +1,6 @@
-import ManageAttendance from "../pages/Manage/attendance";
-import ManageAskLeave from "../pages/Manage/askleave";
-import ManageResign from "../pages/Manage/resign";
+import ManageAttendance from "../pages/Manage/Attendance";
+import ManageAskLeave from "../pages/Manage/AskLeave";
+import ManageResign from "../pages/Manage/Resign";
 export default [
   {
     path: "/home/manage/attendance",

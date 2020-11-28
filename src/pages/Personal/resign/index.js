@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Row, Col, Typography } from "antd";
 const { Title, Paragraph, Text } = Typography;
 import BasicForm from "../../../components/Form/index";
-import FormOption from "../../../config/resign.form";
+import FormOption from "../../../config/Form/resign.form";
 export default function Resign() {
   return (
     <Fragment>

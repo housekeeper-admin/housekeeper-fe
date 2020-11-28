@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React  from "react";
 import { Typography, Divider } from "antd";
-import data from "../../../config/messageDetail";
-import format from "../../../utils/format";
+import data from "../../mock/article.detail";
+import format from "../../utils/format";
 const { Title, Paragraph,Text } = Typography;
 /**
  * 
