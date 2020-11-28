@@ -3,7 +3,6 @@ import PersonalAttendance from "../pages/Personal/attendance";
 import PersonalAskLeave from "../pages/Personal/askleave";
 import PersonalResign from "../pages/Personal/resign";
 import PersonalWage from "../pages/Personal/wage";
-import PersonalTask from "../pages/Personal/task";
 export default [
   {
     path: "/home/personal/entry",
@@ -29,10 +28,5 @@ export default [
     path: "/home/personal/wage",
     name: "Wage",
     component: PersonalWage
-  },
-  {
-    path: "/home/personal/task",
-    name: "Task",
-    component: PersonalTask
   }
 ];

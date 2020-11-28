@@ -1,6 +1,5 @@
 import ManageAttendance from "../pages/Manage/attendance";
 import ManageAskLeave from "../pages/Manage/askleave";
-import ManageTask from "../pages/Manage/task";
 import ManageResign from "../pages/Manage/resign";
 export default [
   {
@@ -18,9 +17,4 @@ export default [
     name: "Resign",
     component: ManageResign
   },
-  {
-    path: "/home/manage/task",
-    name: "Task",
-    component: ManageTask
-  }
 ];

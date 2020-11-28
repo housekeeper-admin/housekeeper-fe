@@ -26,10 +26,6 @@ export default [
       {
         title: "离职申请",
         key: "/home/personal/resign"
-      },
-      {
-        title: "任务查看",
-        key: "/home/personal/task"
       }
     ]
   },
@@ -48,10 +44,6 @@ export default [
       {
         title: "离职申请处理",
         key: "/home/manage/resign"
-      },
-      {
-        title: "任务分配",
-        key: "/home/manage/task"
       }
     ]
   },

@@ -9,7 +9,7 @@ export default function CircleChart(prop) {
         text: prop.title||"图",
       }}
       forceFit
-      radius={0.8}
+      radius={1}
       padding="auto"
       angleField="value"
       colorField="type"

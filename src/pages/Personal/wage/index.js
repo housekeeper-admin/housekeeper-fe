@@ -22,7 +22,7 @@ export default function Wage() {
           ))
         }
         <Card.Grid style={{width:"75%"}}>
-          <span>年度年度详情</span>
+          <span>年度工资详情</span>
           <LineChart data = {historyData} row="month" col="value" valueName="工资"></LineChart>
         </Card.Grid>
       </Card>
