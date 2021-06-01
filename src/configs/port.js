@@ -2,7 +2,7 @@
  * 用户接口
  */
 export const userPort = {
-  login: "/login",
+  login: "api/login",
   updateUserInfo: "/user/updateInfo",
   updatePassword: "/user/updatePass",
   userInfo: "/user/info",

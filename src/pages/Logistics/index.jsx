@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import BasicTable from "../../components/Table";
+import BasicTable from "components/Table";
 import http from "../../apis/axios";
 import { logistics } from "../../configs/port";
 export default function Logistics() {

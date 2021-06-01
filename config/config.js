@@ -24,6 +24,12 @@ module.exports = {
     watchOptions: {
       ignored: /node_modules/
     },
-    proxy: {}
+    proxy: {
+      '/api/**': {
+        target: 'http://192.168.43.141:8081/Company01_war_exploded/home/personal',
+        pathRewrite: { '^/api': '' },
+        changeOrigin: true,
+      },
+    }
   }
 };

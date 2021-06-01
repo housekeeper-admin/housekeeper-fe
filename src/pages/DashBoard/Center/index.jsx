@@ -1,7 +1,7 @@
 /* 个人中心主页面 */
 import React, { Fragment, useEffect, useState } from "react";
 import { Card, Row, Col, Carousel } from "antd";
-import MessageList from "../../../components/MessageList";
+import MessageList from "components/MessageList";
 import appList from "../../../configs/card";
 import http from "../../../apis/axios";
 import { article } from "../../../configs/port";

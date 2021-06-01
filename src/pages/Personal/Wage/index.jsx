@@ -1,6 +1,5 @@
 import React, { Fragment,useEffect,useState } from "react";
-import CirclChart from "../../../components/CircleChart";
-import LineChart from "../../../components/linChart";
+import {CircleChart, LineChart} from 'components/chart';
 import http from "../../../apis/axios";
 import {wage} from "../../../configs/port";
 import storage from "../../../apis/storage";
@@ -48,7 +47,7 @@ export default function Wage() {
     <Fragment>
       <Card title="工资详情">
         <Card.Grid style={gridStyle}>
-          <CirclChart data={current} title="税后工资组成"></CirclChart>
+          <CircleChart data={current} title="税后工资组成"></CircleChart>
         </Card.Grid>
         {
           current.map((item, index)=>(

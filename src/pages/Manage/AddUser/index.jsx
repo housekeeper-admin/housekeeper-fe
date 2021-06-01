@@ -1,6 +1,6 @@
 import { Card, Col, Row } from "antd";
 import React from "react";
-import Form from "../../../components/Form";
+import Form from "components/Form";
 import { AddUser_Form } from "../../../configs/form";
 import http from "../../../apis/axios";
 import { userPort } from "../../../configs/port";

@@ -5,9 +5,9 @@ const dotenv = require('dotenv');
 const dotenvExpand = require('dotenv-expand');
 
 const env = argv.env || 'production';
-const ENV_FILE_PATH = path.resolve(__dirname, '../.env');
+const ENV_FILE_PATH = path.resolve(__dirname, './.env');
 
-let dotenvFiles = [
+const dotenvFiles = [
   `${ENV_FILE_PATH}.${env}.local`,
   `${ENV_FILE_PATH}.${env}`,
   env !== 'test' && `${ENV_FILE_PATH}.local`,
@@ -36,7 +36,8 @@ function getClientEnvironment(publicUrl) {
       {
         NODE_ENV: process.env.NODE_ENV || 'production',
         APP_ENV: env,
-        PUBLIC_URL: publicUrl
+        PUBLIC_URL: publicUrl,
+        ROOT_PROXY: ''
       }
     );
 
@@ -44,7 +45,6 @@ function getClientEnvironment(publicUrl) {
   Object.keys(raw).forEach((key, index) => {
     stringified['process.env.' + key] = JSON.stringify(raw[key]);
   });
-
   return { raw, stringified };
 }
 

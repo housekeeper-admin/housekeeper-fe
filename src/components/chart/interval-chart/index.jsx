@@ -1,7 +1,7 @@
-import React from "react";
+import * as React from "react";
 import { Chart, Interval } from "bizcharts";
 
-const Intervals = (props) => {
+const IntervalChart = (props) => {
   const {
     data, row, col, height = 300
   } = props;
@@ -17,4 +17,4 @@ const Intervals = (props) => {
   );
 };
 
-export default Intervals;
+export default IntervalChart;
