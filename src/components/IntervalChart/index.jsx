@@ -1,8 +1,20 @@
 import React from "react";
 import { Chart, Interval } from "bizcharts";
-export default function Intervals(prop) {
+
+const Intervals = (props) => {
+  const {
+    data, row, col, height = 300
+  } = props;
+
   return (
-  <Chart height={prop.height || 300} autoFit data={prop.data} >
-    <Interval position={`${prop.row}*${prop.col}`}  />
-  </Chart>);
-}
+    <Chart
+      height={height}
+      autoFit
+      data={data}
+    >
+      <Interval position={`${row}*${col}`} />
+    </Chart>
+  );
+};
+
+export default Intervals;

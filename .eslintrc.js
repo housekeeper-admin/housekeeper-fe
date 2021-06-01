@@ -34,6 +34,7 @@ module.exports = {
     "prefer-const": 'off',
     "semi": [2, 'always'],
     "no-unused-vars": 0, // 不允许未定义的变量
-    "jsx-control-statements/jsx-use-if-tag": 0
+    "jsx-control-statements/jsx-use-if-tag": 0,
+    "react/prop-types": 0
   }
 };

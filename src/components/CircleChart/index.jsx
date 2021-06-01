@@ -1,12 +1,23 @@
-import { DonutChart } from "bizcharts";
 import React from "react";
-export default function CircleChart(prop) {
+import { DonutChart } from "bizcharts";
+
+/**
+ * 
+ * @param {object} props
+ * @param {string} props.title
+ * @param {array} props.data 
+ */
+const CircleChart = (props) => {
+  const {
+    title = "环形图",
+    data = []
+  } = props;
   return (
     <DonutChart
-      data={prop.data || []}
+      data={data}
       title={{
         visible: true,
-        text: prop.title||"图",
+        text: title,
       }}
       forceFit
       radius={1}
@@ -16,4 +27,6 @@ export default function CircleChart(prop) {
       pieStyle={{ stroke: "white", lineWidth: 2 }}
     />
   );
-}
+};
+
+export default CircleChart;
