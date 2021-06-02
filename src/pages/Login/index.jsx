@@ -1,13 +1,12 @@
 import React from "react";
+import _ from 'lodash';
 import { Input, Space, Button, Form, Checkbox, notification, message } from "antd";
 import { useHistory } from "react-router-dom";
-import http from "../../apis/axios";
-import storage from "../../apis/storage";
-import { userPort } from "../../configs/port";
-import STORAGE from "../../configs/storage";
-import throttle from "../../utils/throttle";
-import getNow from "../../utils/now";
+import * as userApi from 'services/user';
+import * as hooks from "@/hooks";
 import "./index.less";
+
+
 const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 20 },
@@ -28,27 +27,22 @@ export default function Login() {
    * 登录提交
    * @param {object} values 
    */
-  const onFinish = async (values) => {
-    // TODO:添加签到所需时间戳
-    values.time = Date.now();
-    values.date = getNow();
-    let res = await http.post(userPort.login, values) || null;
-    if (res) {
-      storage.set({ key: STORAGE.TOKEN, value: values?.userId, expired: 1000 * 60 * 60 * 8 });
-      storage.set({ key: STORAGE.USER_INFO, value: { name: res?.username, userId: values?.userId,power: res?.authority } });
-      storage.set({ key: STORAGE.ATTENDANCE_ID, value: values.time, expired: 1000 * 60 * 60 * 8 });
+  const onFinish = _.debounce(async (values) => {
+    try {
+      const res = await userApi.getUserLogin(values);
+      const [user] = hooks.useUserStorage(Object.assign(res, values));
       notification.open({
-        message: `欢迎回来，${res.username}~`,
+        message: `欢迎回来，${user.username}~`,
         description: descList[Math.floor((Math.random() * 3) + 1)],
         duration: 2
       });
       setTimeout(() => {
         history.push("/center");
       }, 1200);
-    } else {
-      message.warn("登录失败");
+    } catch (error) {
+      message.error("登录失败");
     }
-  };
+  }, 1000);
 
   const onFinishFailed = () => {
     message.warn("登录失败");
@@ -61,13 +55,12 @@ export default function Login() {
       <div className="Title">管家婆--企业管理一站式解决方案</div>
       <div className="LoginForm">
         <Space direction="vertical" align="center" size="middle">
-          <a className="Logo" href="http://59.110.163.1/houseworker/index.html"></a>
           <Form
             {...layout}
             name="basic"
             validateMessages={validateMessages}
             initialValues={{ remember: true }}
-            onFinish={throttle(onFinish,5000)}
+            onFinish={onFinish}
             onFinishFailed={onFinishFailed}
           >
             <Form.Item

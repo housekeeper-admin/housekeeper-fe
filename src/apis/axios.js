@@ -1,12 +1,11 @@
 import axios from "axios";
 import storage from "./storage";
 import STORAGE from "../configs/storage";
-import {message} from 'antd';
 /**
  * http请求
  */
 const http = axios.create({
-  baseURL: '/api',
+  baseURL: 'http://192.168.0.185:8081/Company01_war_exploded/home/personal',
   timeout: 5000
 });
 http.interceptors.request.use(
@@ -18,8 +17,7 @@ http.interceptors.request.use(
     return config;
   },
   error => {
-    message.error(error);
-    return Promise.reject(error);
+    return new Error(error);
   }
 );
 
@@ -29,11 +27,10 @@ http.interceptors.response.use(
     if (res.code < 1) {
       return false;
     }
-    return res.data || true;
+    return res.data;
   },
   error => {
-    message.error(error);
-    return false;
+    return new Error(error);
   }
 );
 

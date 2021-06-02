@@ -10,6 +10,7 @@ class base_storages {
   }
 }
 /**
+ * storages存储
 * @class storages get&set storage
 */
 class storages extends base_storages {
@@ -92,5 +93,8 @@ class storages extends base_storages {
   }
 }
 
+/**
+ * storage存储
+ */
 const storage = new storages();
 export default storage;
