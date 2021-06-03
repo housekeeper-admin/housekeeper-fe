@@ -5,7 +5,7 @@ import STORAGE from "../configs/storage";
  * http请求
  */
 const http = axios.create({
-  baseURL: 'http://192.168.0.185:8081/Company01_war_exploded/home/personal',
+  baseURL: 'http://192.168.43.141:8081/Company01_war_exploded/home/personal',
   timeout: 5000
 });
 http.interceptors.request.use(
@@ -25,7 +25,7 @@ http.interceptors.response.use(
   response => {
     const res = response.data;
     if (res.code < 1) {
-      return false;
+      return null;
     }
     return res.data;
   },

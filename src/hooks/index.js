@@ -1,1 +1,5 @@
-export * as useUserStorage from './useUserStorage';
+import useUserStorage from './useUserStorage';
+
+export default {
+  useUserStorage
+};

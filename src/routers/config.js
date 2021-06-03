@@ -4,7 +4,7 @@ export default [
     /**登录页 */
     path: "/login",
     name: "Login",
-    component: React.lazy(() => import("../pages/Login"))
+    component: React.lazy(() => import("../pages/login"))
   },
   {
     /** 个人面板页 */
@@ -24,53 +24,53 @@ export default [
 export const DashRoutes = [
   /* 没有权限页 */
   {
-    path: "/noauth",
+    path: "/:userId/noauth",
     name: "NoAuth",
     component: React.lazy(() => import("../pages/Error/NoAuth"))
   },
   /* 用户个人页 */
   {
-    path: "/personal",
+    path: "/:userId/personal",
     name: "Personal",
     component: React.lazy(() => import("../pages/Personal")),
   },
   /* 管理页 */
   {
-    path: "/manage",
+    path: "/:userId/manage",
     name: "Manage",
     component: React.lazy(() => import("../pages/Manage")),
   },
   /**center */
   {
-    path: "/center",
+    path: "/:userId/:authority/center",
     name: "Center",
     component: React.lazy(() => import("../pages/DashBoard/Center")),
   },
   {/* 文章详情页 */
-    path: "/article/:id",
+    path: "/:userId/article/:id",
     name: "Article",
     component: React.lazy(() => import("../pages/Article"))
   },
   /**EDITOR */
   {
-    path: "/editor",
+    path: "/:userId/editor",
     name: "Editor",
     component: React.lazy(() => import("../pages/Editor")),
   },
   {
     /* 断网页面 */
-    path: "/offline",
+    path: "/:userId/offline",
     name: "OffLine",
     component: React.lazy(() => import("../pages/Error/OffLine"))
   },
   {
     /* 后勤 */
-    path: "/logistics",
+    path: "/:userId/logistics",
     name: "Logistics",
     component: React.lazy(() => import("../pages/Logistics"))
   },
   {
-    path: "/upload",
+    path: "/:userId/upload",
     name: "Upload",
     component: React.lazy(() => import("../pages/FileUpload"))
   },
@@ -85,37 +85,37 @@ export const DashRoutes = [
 export const PersonalRoutes = [
   {
     /* 请假 */
-    path: "/personal/askleave",
+    path: "/:userId/personal/askleave",
     name: "AskLeave",
     component: React.lazy(() => import("../pages/Personal/AskLeave")),
   },
   {
     /* 考勤 */
-    path: "/personal/attendance",
+    path: "/:userId/personal/attendance",
     name: "Attendance",
     component: React.lazy(() => import("../pages/Personal/Attendance")),
   },
   {
     /**薪资 */
-    path: "/personal/wage",
+    path: "/:userId/personal/wage",
     name: "Wage",
     component: React.lazy(() => import("../pages/Personal/Wage"))
   },
   {
     /*入职 */
-    path: "/personal/entry",
+    path: "/:userId/personal/entry",
     name: "Wage",
     component: React.lazy(() => import("../pages/Personal/Entry"))
   },
   {
     /*离职 */
-    path: "/personal/resign",
+    path: "/:userId/personal/resign",
     name: "Resign",
     component: React.lazy(() => import("../pages/Personal/Resign"))
   },
   {
     /*更新个人信息 */
-    path: "/personal/update",
+    path: "/:userId/personal/update",
     name: "Update",
     component: React.lazy(() => import("../pages/Personal/Update"))
   },
@@ -131,37 +131,37 @@ export const PersonalRoutes = [
 export const ManageRoutes = [
   {
     /*考勤 */
-    path: "/manage/attendance",
+    path: "/:userId/manage/attendance",
     name: "Wage",
     component: React.lazy(() => import("../pages/Manage/Attendance"))
   },
   {
     /*请假 */
-    path: "/manage/askleave",
+    path: "/:userId/manage/askleave",
     name: "Resign",
     component: React.lazy(() => import("../pages/Manage/AskLeave"))
   },
   {
     /*离职 */
-    path: "/manage/resign",
+    path: "/:userId/manage/resign",
     name: "Resign",
     component: React.lazy(() => import("../pages/Manage/Resign"))
   },
   {
     /*添加入职人员 */
-    path: "/manage/adduser",
+    path: "/:userId/manage/adduser",
     name: "AddUser",
     component: React.lazy(() => import("../pages/Manage/AddUser"))
   },
   {
     /*修改/添加后勤 */
-    path: "/manage/logistics",
+    path: "/:userId/manage/logistics",
     name: "Logistics",
     component: React.lazy(() => import("../pages/Manage/Logistics"))
   },
   /* 添加工资 */
   {
-    path: "/manage/addwage",
+    path: "/:userId/manage/addwage",
     name: "Addwage",
     component: React.lazy(() => import("../pages/Manage/AddWage"))
   },

@@ -23,7 +23,7 @@ const contentStyle = {
 };
 export default function Center() {
   const [list, setlist] = useState([]);
-  const swiperList = [
+  const swaperList = [
     {
       id: "1",
       url: "/img/1.jpg"
@@ -71,7 +71,7 @@ export default function Center() {
         <Col span={12} style={{ height: "100%" }}>
           <Carousel afterChange={onChange} autoplay={true}>
             {
-              swiperList.map((item, index) => (
+              swaperList.map((item, index) => (
                 <div key={item.id || index}>
                   <img style={contentStyle} src={item.url} alt={index} srcSet="" />
                 </div>

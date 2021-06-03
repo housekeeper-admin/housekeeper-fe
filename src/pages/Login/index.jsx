@@ -1,15 +1,17 @@
-import React from "react";
+import * as React from "react";
 import _ from 'lodash';
-import { Input, Space, Button, Form, Checkbox, notification, message } from "antd";
+import { Input, Button, Form, Checkbox, notification, message } from "antd";
+import FormField from 'components/antd/form-field';
 import { useHistory } from "react-router-dom";
 import * as userApi from 'services/user';
-import * as hooks from "@/hooks";
+import hooks from "@/hooks";
+import GlobalContext from '@/context';
 import "./index.less";
 
 
 const layout = {
-  labelCol: { span: 4 },
-  wrapperCol: { span: 20 },
+  labelCol: { span: 6 },
+  wrapperCol: { span: 18 },
 };
 const tailLayout = {
   wrapperCol: { offset: 4, span: 20 },
@@ -21,26 +23,37 @@ const descList = [
   "打工人，冲冲冲~",
   "美好的一天，从遇见你开始"
 ];
-export default function Login() {
+const Login = () => {
   const history = useHistory();
+  const [loading, setLoading] = React.useState(false);
+  const { updateUserInfo } = React.useContext(GlobalContext);
   /**
    * 登录提交
    * @param {object} values 
    */
   const onFinish = _.debounce(async (values) => {
     try {
+      setLoading(true);
       const res = await userApi.getUserLogin(values);
-      const [user] = hooks.useUserStorage(Object.assign(res, values));
+      const value = hooks.useUserStorage(res);
+      updateUserInfo({
+        userId: value.userId,
+        username: value.username,
+        auth: value.authority,
+        departmentId: value.departmentId
+      });
       notification.open({
-        message: `欢迎回来，${user.username}~`,
+        message: `欢迎回来，${value.username}~`,
         description: descList[Math.floor((Math.random() * 3) + 1)],
         duration: 2
       });
       setTimeout(() => {
-        history.push("/center");
+        history.push(`/center/${value.userId}/${value.authority}`);
       }, 1200);
     } catch (error) {
       message.error("登录失败");
+    } finally {
+      setLoading(false);
     }
   }, 1000);
 
@@ -54,46 +67,52 @@ export default function Login() {
     <div className="Login">
       <div className="Title">管家婆--企业管理一站式解决方案</div>
       <div className="LoginForm">
-        <Space direction="vertical" align="center" size="middle">
-          <Form
-            {...layout}
-            name="basic"
-            validateMessages={validateMessages}
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
+        <Form
+          {...layout}
+          name="basic"
+          validateMessages={validateMessages}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+        >
+          <FormField
+            label="工号"
+            name="userId"
+            required
           >
-            <Form.Item
-              label="工号"
-              name="userId"
-              rules={[{ required: true, message: "请输入您的工号" }]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="密码"
-              name="password"
-              rules={
-                [{ required: true, message: "请输入您的密码" },
-                { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, message: "密码为八位以上大小写字母和数字的组合" }]
-              }
-            >
-              <Input.Password />
-            </Form.Item>
+            <Input />
+          </FormField>
+          <FormField
+            label="密码"
+            name="password"
+            required
+            rules={
+              [{
+                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+                message: "密码为八位以上大小写字母和数字的组合"
+              }]
+            }
+          >
+            <Input.Password />
+          </FormField>
 
-            <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item>
+          <FormField
+            {...tailLayout}
+            name="remember"
+            valuePropName="checked"
+          >
+            <Checkbox>记住我</Checkbox>
+          </FormField>
 
-            <Form.Item {...tailLayout}>
-              <Button type="primary" htmlType="submit">
-                Submit
+          <FormField {...tailLayout}>
+            <Button type="primary" htmlType="submit" loading={loading}>
+              登录
               </Button>
-            </Form.Item>
-          </Form>
-
-        </Space>
+          </FormField>
+        </Form>
       </div>
     </div>
   );
-}
+};
+
+export default Login;

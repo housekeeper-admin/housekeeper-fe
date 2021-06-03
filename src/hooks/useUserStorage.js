@@ -29,31 +29,11 @@ const updateStorage = (userInfo) => {
  * @param {time} userInfo.time
  */
 const useUserStorage = (userInfo) => {
-  const [userStorage, setUserStorage] = React.useState(null);
-
-  const updateUserInfo = (info) => {
-    if (!info) {
-      return;
-    }
-    const value= {
-      ...userStorage,
-      ...info
-    };
-    setUserStorage(value);
-    storage.set({
-      key: STORAGE_KEY_MAP.USER_INFO,
-      value: value
-    });
-  };
   updateStorage(userInfo);
   const info = storage.get({
     key: STORAGE_KEY_MAP.USER_INFO
   });
-  setUserStorage(info);
-  return [
-    userStorage,
-    updateUserInfo
-  ];
+  return info;
 };
 
 export default useUserStorage;
