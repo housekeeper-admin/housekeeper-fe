@@ -1,17 +1,28 @@
-import React, { Fragment } from "react";
-import { Switch } from "react-router-dom";
-import { ManageRoutes } from "../../routers/config";
-import { RouteWithSubRoutes } from "../../routers/index";
-export default function Manage() {
+import * as React from "react";
+import { Route, Switch } from "react-router-dom";
+
+const NoAuth = React.lazy(() => import("@/pages/Error/NoAuth"));
+const Attendance = React.lazy(() => import("@/pages/Manage/Attendance"));
+const AskLeave = React.lazy(() => import("@/pages/Manage/AskLeave"));
+const Resign = React.lazy(() => import("@/pages/Manage/Resign"));
+const AddUser = React.lazy(() => import("@/pages/Manage/AddUser"));
+const Logistics = React.lazy(() => import("@/pages/Manage/Logistics"));
+const AddWage = React.lazy(() => import("@/pages/Manage/AddWage"));
+const NoMatch = React.lazy(() => import("@/pages/Error/NoMatch"));
+
+const Router = () => {
   return (
-    <Fragment>
-      <Switch>
-        {
-          ManageRoutes.map((route, i) =>
-            (<RouteWithSubRoutes key={i} {...route}></RouteWithSubRoutes>)
-          )
-        }
-      </Switch>
-    </Fragment>
+    <Switch>
+      <Route name="Attendance" path="/manage/:userId/:authority/:departmentId/attendance" component={Attendance} />
+      <Route name="AskLeave" path="/manage/:userId/:authority/:departmentId/askleave" component={AskLeave} />
+      <Route name="Resign" path="/manage/:userId/:authority/:departmentId/resign" component={Resign} />
+      <Route name="AddUser" path="/manage/:userId/:authority/:departmentId/adduser" component={AddUser} />
+      <Route name="Logistics" path="/manage/:userId/:authority/:departmentId/logistics" component={Logistics} />
+      <Route name="NoAuth" path="/manage/:userId/:authority/:departmentId/addwage" component={AddWage} />
+      <Route name="NoAuth" path="/noauth" component={NoAuth} />
+      <Route name="NoMatch" path="*" component={NoMatch} />
+    </Switch>
   );
-}
+};
+
+export default Router;

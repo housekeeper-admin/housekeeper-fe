@@ -2,7 +2,6 @@
 const menuItemsList = ({
   userId, departmentId, authority
 }) => {
-  console.log(userId, departmentId, authority);
   return [
     {
       title: "首页",
@@ -18,7 +17,7 @@ const menuItemsList = ({
         },
         {
           title: "考勤状态",
-          key: `/personal/${userId}/${departmentId}}/attendance`
+          key: `/personal/${userId}/${departmentId}/attendance`
         },
         {
           title: "请假申请",
@@ -30,7 +29,7 @@ const menuItemsList = ({
         },
         {
           title: "离职申请",
-          key: `/personal/${userId}/resign`
+          key: `/personal/${userId}/${departmentId}/resign`
         },
         {
           title: "修改个人信息",
