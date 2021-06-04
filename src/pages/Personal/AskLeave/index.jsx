@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { List, Card, Row, Col } from "antd";
-import {PieChart, IntervalChart} from 'components/chart';
+import PieChart from 'components/chart/pie-chart';
+import IntervalChart from 'components/chart/interval-chart';
 import Form from "components/Form";
 import { AskLeave_Form } from "../../../configs/form";
 import http from "../../../apis/axios";
