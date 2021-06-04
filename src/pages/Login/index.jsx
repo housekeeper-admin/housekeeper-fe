@@ -39,7 +39,7 @@ const Login = () => {
       updateUserInfo({
         userId: value.userId,
         username: value.username,
-        auth: value.authority,
+        authority: value.authority,
         departmentId: value.departmentId
       });
       notification.open({

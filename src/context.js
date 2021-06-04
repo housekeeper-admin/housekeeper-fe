@@ -1,9 +1,13 @@
 import * as React from 'react';
+import storage from "apis/storage";
+import STORAGE_KEY_MAP from "configs/storage";
 
-const defaultUserInfo = {
+const defaultUserInfo = storage.get({
+  key: STORAGE_KEY_MAP.USER_INFO
+}) || {
   userId: undefined,
   username: '',
-  auth: 0,
+  authority: 0,
   departmentId: -1,
 };
 

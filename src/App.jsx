@@ -1,6 +1,6 @@
 import * as React from "react";
 /* 引入路由 */
-import Router from "./routers";
+import Router from "./router";
 import GlobalContext, { defaultContext } from './context';
 import "./App.less";
 function App() {

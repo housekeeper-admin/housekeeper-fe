@@ -95,7 +95,7 @@ module.exports = merge.smart(baseWebpackConfig, {
         removeEmptyAttributes: true,
         removeStyleLinkTypeAttributes: true,
         removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true,
+        // removeStyleLinkTypeAttributes: true,
         removeAttributeQuotes: true,
         removeCommentsFromCDATA: true,
         keepClosingSlash: true,
@@ -155,7 +155,7 @@ module.exports = merge.smart(baseWebpackConfig, {
     },
     minimizer: [
       new OptimizeCSSAssetsPlugin({
-        cssProcessorOptions: true ? { map: { inline: false } } : {}
+        cssProcessorOptions: { map: { inline: false } }
       }),
       new TerserPlugin({
         sourceMap: config.productionJsSourceMap

@@ -12,9 +12,10 @@ const updateStorage = (userInfo) => {
     storage.set({
       key: STORAGE_KEY_MAP.USER_INFO,
       value: {
-        name: userInfo.username,
+        username: userInfo.username,
         userId: userInfo.userId,
-        power: userInfo.authority
+        authority: userInfo.authority,
+        departmentId: userInfo.departmentId
       }
     });
   }

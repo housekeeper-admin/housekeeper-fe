@@ -1,25 +1,4 @@
 import React from "react";
-export default [
-  {
-    /**登录页 */
-    path: "/login",
-    name: "Login",
-    component: React.lazy(() => import("../pages/login"))
-  },
-  {
-    /** 个人面板页 */
-    path: "/",
-    name: "DashBoard",
-    power: 2,
-    component: React.lazy(() => import("../pages/DashBoard")),
-  },
-  {
-    /* 404 */
-    path: "*",
-    name: "NoMatch",
-    component: React.lazy(() => import("../pages/Error/NoMatch")),
-  },
-];
 /* 主页面 */
 export const DashRoutes = [
   /* 没有权限页 */
@@ -42,14 +21,14 @@ export const DashRoutes = [
   },
   /**center */
   {
-    path: "/:userId/:authority/center",
+    path: "/center/:userId/:authority",
     name: "Center",
     component: React.lazy(() => import("../pages/DashBoard/Center")),
   },
   {/* 文章详情页 */
     path: "/:userId/article/:id",
     name: "Article",
-    component: React.lazy(() => import("../pages/Article"))
+    component: React.lazy(() => import("../pages/article"))
   },
   /**EDITOR */
   {
