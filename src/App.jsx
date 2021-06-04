@@ -1,12 +1,20 @@
-import React from "react";
+import * as React from "react";
 /* 引入路由 */
-import Router from "./routers";
+import Router from "./router";
+import GlobalContext, { defaultContext } from './context';
 import "./App.less";
 function App() {
+  const [userInfo, updateUserInfo] = React.useState(defaultContext);
+
   return (
-    <div className="App">
-      <Router></Router>
-    </div>
+    <GlobalContext.Provider
+      value={{
+        ...userInfo,
+        updateUserInfo
+      }}
+    >
+      <Router />
+    </GlobalContext.Provider>
   );
 }
 

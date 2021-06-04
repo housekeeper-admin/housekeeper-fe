@@ -13,13 +13,13 @@ const { Title, Text } = Typography;
  * @param {object} props 通过message路由传递过来的参数
  */
 export default function Message(props) {
-  let prop = props.location.state;
-  let local = storage.get({key:STORAGE.ARTICLE}) || null;
-  const [articleDetail, setarticle] = useState(props.location.state);
+  const prop = props.location.state;
+  const local = storage.get({key:STORAGE.ARTICLE}) || null;
+  const [articleDetail, setArticleDetail] = useState(props.location.state);
   useEffect(() => {
     const fetchData = async () => {
       let result = await http.post(article.detail, {txtId:prop?.txtId || local?.id }) || {};
-      setarticle(result);
+      setArticleDetail(result);
     };
     fetchData();
   }, []);

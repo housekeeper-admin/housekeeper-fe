@@ -1,6 +1,6 @@
 import { Card, Col, Row } from "antd";
 import React from "react";
-import Form from "../../../components/Form";
+import Form from "components/Form";
 import { Update_UserInfo_Form, Update_Pass_Form } from "../../../configs/form";
 import http from "../../../apis/axios";
 import storage from "../../../apis/storage";

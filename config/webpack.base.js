@@ -152,7 +152,10 @@ module.exports = merge(webpackConfig, {
       'components': path.resolve(__dirname, '../src/components'),
       'pages': path.resolve(__dirname, '../src/pages'),
       'hooks': path.resolve(__dirname, '../src/hooks'),
-      'types': path.resolve(__dirname, '../src/types'),
+      'apis': path.resolve(__dirname, '../src/apis'),
+      'utils': path.resolve(__dirname, '../src/utils'),
+      "services": path.resolve(__dirname, '../src/services'),
+      "configs": path.resolve(__dirname, '../src/configs'),
     }
   },
   plugins: [

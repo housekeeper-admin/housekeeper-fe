@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import Table from "../../../components/Table";
+import Table from "components/Table";
 import { attendance } from "../../../configs/port";
 import http from "../../../apis/axios";
 import format from "../../../utils/format";

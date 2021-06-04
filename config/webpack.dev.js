@@ -50,10 +50,10 @@ module.exports = new Promise((resolve, reject) => {
   // 搜寻可用的端口号
   portfinder.basePort = config.devServer.port;
   portfinder.getPort((err, port) => {
-    if (err) reject(err)
+    if (err) reject(err);
     else {
       devWebpackConfig.devServer.port = port;
     }
-    resolve(devWebpackConfig)
-  })
+    resolve(devWebpackConfig);
+  });
 });

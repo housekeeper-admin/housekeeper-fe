@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { List, Card, Row, Col } from "antd";
-import PieChart from "../../../components/PieChart";
-import Interval from "../../../components/IntervalChart";
-import Form from "../../../components/Form";
+import PieChart from 'components/chart/pie-chart';
+import IntervalChart from 'components/chart/interval-chart';
+import Form from "components/Form";
 import { AskLeave_Form } from "../../../configs/form";
 import http from "../../../apis/axios";
 import { askleave } from "../../../configs/port";
@@ -40,7 +40,7 @@ export default function AskLeave() {
     },
     {
       title: "请假类型分布图",
-      content: <Interval data={piedata} row="item" col="count" height={220}></Interval>
+      content: <IntervalChart data={piedata} row="item" col="count" height={220}></IntervalChart>
     },
   ];
   const submit = (url) => {
