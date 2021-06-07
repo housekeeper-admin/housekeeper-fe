@@ -1,16 +1,16 @@
-import React, { Fragment, useState, useEffect } from "react";
-import Table from "components/Table";
-import { attendance } from "../../../configs/port";
-import http from "../../../apis/axios";
-import format from "../../../utils/format";
-import storage from "../../../apis/storage";
-import STORAGE from "../../../configs/storage";
-import { message } from "antd";
+import React, { Fragment, useState, useEffect } from 'react';
+import Table from 'components/Table';
+import { attendance } from '../../../configs/port';
+import http from '../../../apis/axios';
+import format from '../../../utils/format';
+import storage from '../../../apis/storage';
+import STORAGE from '../../../storage/storage-key-map.config';
+import { message } from 'antd';
 export default function Attendance() {
   const [data, setdata] = useState([]);
   useEffect(() => {
     const getData = async () => {
-      let data = await http.post(attendance.list) || [];
+      let data = (await http.post(attendance.list)) || [];
       let res = data.map(item => {
         return {
           id: item.mendId,
@@ -26,37 +26,37 @@ export default function Attendance() {
   }, []);
   /**
    * 搜索函数
-   * @param {string} value 
+   * @param {string} value
    */
-  const search = async (value) => {
-    let data = await http.post(attendance.list, {
-      search: value
-    }) || [];
+  const search = async value => {
+    let data =
+      (await http.post(attendance.list, {
+        search: value,
+      })) || [];
     setdata(data);
   };
   /**
    * 处理选中项
-   * @param {array} arr 
+   * @param {array} arr
    */
   const handleSelect = async (arr, code) => {
-
     let res = await http.post(attendance.handle, {
       arr: arr.toString(),
-      code: code?1:2,
-      username: storage.get({key: STORAGE.USER_INFO}).name,
+      code: code ? 1 : 2,
+      username: storage.get({ key: STORAGE.USER_INFO }).name,
     });
-    if(res) {
+    if (res) {
       return res;
     } else {
-      message.warn("修改失败");
+      message.warn('修改失败');
     }
   };
-  const titleArr = ["id", "工号","姓名",  "原因","时间",];
+  const titleArr = ['id', '工号', '姓名', '原因', '时间'];
   const columns = [];
-  
+
   for (let item in data[0]) {
     columns.push({
-      dataIndex: item
+      dataIndex: item,
     });
   }
   console.log(columns);
@@ -72,8 +72,7 @@ export default function Attendance() {
         placeholder="搜索指定人员(以工号查询)"
         checkBox={true}
         data={data}
-        handle = {handleSelect}
-      ></Table>
+        handle={handleSelect}></Table>
     </Fragment>
   );
 }

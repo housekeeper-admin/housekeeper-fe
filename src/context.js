@@ -1,29 +1,32 @@
 import * as React from 'react';
-import storage from "apis/storage";
-import STORAGE_KEY_MAP from "configs/storage";
 
-const defaultUserInfo = storage.get({
-  key: STORAGE_KEY_MAP.USER_INFO
-}) || {
+const defaultUserInfo = {
   userId: undefined,
   username: '',
+  departmentname: '',
   authority: 0,
-  departmentId: -1,
+  departmentId: undefined,
+  email: '',
+  sex: '男',
+  phone: undefined,
 };
 
 /**
- * 
- * @param {object} userInfo 
+ *
+ * @param {object} userInfo
  * @param {number} userInfo.userId
  * @param {string} userInfo.username
- * @param {number} userInfo.auth
+ * @param {number} userInfo.authority
  * @param {number} userInfo.departmentId
+ * @param {string} userInfo.email
+ * @param {string} userInfo.sex
+ * @param {number} userInfo.phone
  */
-const updateUserInfo = (userInfo) => {};
+const updateUserInfo = userInfo => {};
 
 export const defaultContext = {
   userInfo: defaultUserInfo,
-  updateUserInfo: updateUserInfo
+  updateUserInfo: updateUserInfo,
 };
 
 const GlobalContext = React.createContext(defaultContext);

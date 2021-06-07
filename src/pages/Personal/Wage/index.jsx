@@ -1,14 +1,14 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from 'react';
 import CircleChart from 'components/chart/circle-chart';
 import LineChart from 'components/chart/line-chart';
-import http from "../../../apis/axios";
-import { wage } from "../../../configs/port";
-import storage from "../../../apis/storage";
-import STORAGE from "../../../configs/storage";
-import { Card } from "antd";
+import http from '../../../apis/axios';
+import { wage } from '../../../configs/port';
+import storage from '../../../apis/storage';
+import STORAGE from '../../../storage/storage-key-map.config';
+import { Card } from 'antd';
 const gridStyle = {
-  width: "25%",
-  textAlign: "center",
+  width: '25%',
+  textAlign: 'center',
 };
 
 export default function Wage() {
@@ -16,7 +16,10 @@ export default function Wage() {
   const [current, setcurrent] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      let history = await http.post(wage.history, { userId: storage.get({ key: STORAGE.USER_INFO })?.userId }) || [];
+      let history =
+        (await http.post(wage.history, {
+          userId: storage.get({ key: STORAGE.USER_INFO })?.userId,
+        })) || [];
       history.map(item => {
         let month = new Date(Number(item.time));
         item.month = month.getMonth();
@@ -25,16 +28,16 @@ export default function Wage() {
       let temp = [];
       for (const item in history[0]) {
         let t = {};
-        if (item === "basepay") {
-          t.type = "基本工资";
+        if (item === 'basepay') {
+          t.type = '基本工资';
           t.value = history[0][item];
           temp.push(t);
-        } else if (item === "allowance") {
-          t.type = "补助";
+        } else if (item === 'allowance') {
+          t.type = '补助';
           t.value = history[0][item];
           temp.push(t);
-        } else if (item === "reward") {
-          t.type = "奖金";
+        } else if (item === 'reward') {
+          t.type = '奖金';
           t.value = history[0][item];
           temp.push(t);
         }
@@ -50,12 +53,12 @@ export default function Wage() {
         <Card.Grid style={gridStyle}>
           <CircleChart data={current} title="税后工资组成"></CircleChart>
         </Card.Grid>
-        {
-          current.map((item, index) => (
-            <Card.Grid style={gridStyle} key={index}>{item.type + ":" + item.value + "￥"}</Card.Grid>
-          ))
-        }
-        <Card.Grid style={{ width: "75%" }}>
+        {current.map((item, index) => (
+          <Card.Grid style={gridStyle} key={index}>
+            {item.type + ':' + item.value + '￥'}
+          </Card.Grid>
+        ))}
+        <Card.Grid style={{ width: '75%' }}>
           <span>年度工资详情</span>
           <LineChart data={history} row="month" col="value" valueName="工资"></LineChart>
         </Card.Grid>

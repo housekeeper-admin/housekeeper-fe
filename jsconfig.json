@@ -12,7 +12,7 @@
         "src/pages/*"
       ],
       "hooks/*": [
-        "src/hooks/*"
+        "src/storage/*"
       ],
       "services/*": [
         "src/services/*"

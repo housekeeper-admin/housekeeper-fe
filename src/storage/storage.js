@@ -6,13 +6,13 @@ class base_storages {
     this.writeTime = Number(Date.now());
   }
   isNotExist(value) {
-    return value === null || typeof value === "undefined";
+    return value === null || typeof value === 'undefined';
   }
 }
 /**
  * storages存储
-* @class storages get&set storage
-*/
+ * @class storages get&set storage
+ */
 class storages extends base_storages {
   /**
    * @method set - Stored value

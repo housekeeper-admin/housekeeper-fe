@@ -1,18 +1,17 @@
-import axios from "axios";
-import storage from "./storage";
-import STORAGE from "../configs/storage";
+import axios from 'axios';
+import STG from '@/storage';
 /**
  * http请求
  */
 const http = axios.create({
   baseURL: 'http://192.168.43.141:8081/Company01_war_exploded/home/personal',
-  timeout: 5000
+  timeout: 5000,
 });
 http.interceptors.request.use(
   config => {
-    const token = storage.get({key:STORAGE.TOKEN}) || null;
+    const token = STG.storage.get({ key: STG.STORAGE_KEY_MAP.TOKEN }) || null;
     if (token) {
-      config.headers["Authorization"] =  token; // 让每个请求携带自定义token 请根据实际情况自行修改
+      config.headers['Authorization'] = token; // 让每个请求携带自定义token 请根据实际情况自行修改
     }
     return config;
   },

@@ -1,18 +1,21 @@
-import * as React from "react";
-/* 引入路由 */
-import Router from "./router";
+import * as React from 'react';
+import STG from '@/storage';
+import Router from './router';
 import GlobalContext, { defaultContext } from './context';
-import "./App.less";
+import './App.less';
+
 function App() {
-  const [userInfo, updateUserInfo] = React.useState(defaultContext);
+  const storageUserInfo = STG.storage.get({
+    key: STG.STORAGE_KEY_MAP.USER_INFO,
+  });
+  const [userInfo, updateUserInfo] = React.useState(storageUserInfo || defaultContext);
 
   return (
     <GlobalContext.Provider
       value={{
-        ...userInfo,
-        updateUserInfo
-      }}
-    >
+        userInfo: { ...userInfo },
+        updateUserInfo,
+      }}>
       <Router />
     </GlobalContext.Provider>
   );

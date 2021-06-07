@@ -17,6 +17,7 @@
         "nyan-progress-webpack-plugin": "^1.2.0",
         "react": "^16.13.0",
         "react-dom": "^16.13.0",
+        "react-nice-avatar": "^1.0.3",
         "react-router-dom": "^5.1.2"
     },
     "scripts": {
