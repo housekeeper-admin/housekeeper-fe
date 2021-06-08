@@ -1,5 +1,5 @@
 import React from 'react';
-import UserAvatar from 'components/antd/user-avatar';
+import UserAvatar from '@/components/user-avatar';
 import { useHistory } from 'react-router-dom';
 import hooks from '@/storage';
 import { List, Button } from 'antd';

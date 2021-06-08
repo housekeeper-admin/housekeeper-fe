@@ -1,14 +1,14 @@
-import * as React from "react";
-import { Route, Switch } from "react-router-dom";
+import * as React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-const NoAuth = React.lazy(() => import("@/pages/Error/NoAuth"));
-const Personal = React.lazy(() => import("@/pages/Personal"));
-const Manage = React.lazy(() => import("@/pages/Manage"));
-const Center = React.lazy(() => import("@/pages/DashBoard/Center"));
-const Article = React.lazy(() => import("@/pages/article"));
-const Editor = React.lazy(() => import("@/pages/Editor"));
-const Logistics = React.lazy(() => import("@/pages/Logistics"));
-const NoMatch = React.lazy(() => import("@/pages/Error/NoMatch"));
+const NoAuth = React.lazy(() => import('@/pages/error-page/no-auth'));
+const Personal = React.lazy(() => import('@/pages/personal'));
+const Manage = React.lazy(() => import('@/pages/manage'));
+const Center = React.lazy(() => import('@/pages/dash-board/center'));
+const Article = React.lazy(() => import('@/pages/article'));
+const Editor = React.lazy(() => import('@/pages/editor'));
+const Logistics = React.lazy(() => import('@/pages/logistics'));
+const NoMatch = React.lazy(() => import('@/pages/error-page/no-match'));
 
 const Router = () => {
   return (

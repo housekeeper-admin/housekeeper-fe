@@ -1,41 +1,52 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { Typography, Divider, message } from 'antd';
+import { Typography, Divider, message, Spin } from 'antd';
+import { useParams } from 'react-router-dom';
 import api from '@/services';
-import STG from '@/storage';
-import './index.less';
-import format from '../../utils/format';
+import moment from 'moment';
+import './style.less';
 const { Title, Text } = Typography;
 /**
- *
+ * 文章展示页
  * @param {object} props 通过message路由传递过来的参数
  */
-export default function Message(props) {
+const Article = props => {
   const article = props.location.state;
-  const local =
-    STG.storage.get({
-      key: STG.STORAGE_KEY_MAP.ARTICLE,
-    }) || null;
+  const { articleId } = useParams();
   const [articleDetail, setArticleDetail] = useState(article);
+  const [loading, setLoading] = useState(false);
   const fetchData = async () => {
     try {
-      const result = await api.article.getArticleDetail(article.txtId || local.id);
+      setLoading(true);
+      const result = await api.article.getArticleDetail(articleId);
+      result.time = moment(Number(result.time)).format('YYYY-MM-DD hh:mm');
       setArticleDetail(result);
     } catch (error) {
       message.error('获取文章详情失败');
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchData();
+    if (!article) {
+      fetchData();
+    }
   }, [article]);
-  console.log(articleDetail);
   return (
     <Typography className="article-card">
-      <Title>{articleDetail?.title || local?.title}</Title>
-      <Text keyboard>{format(Number(articleDetail?.time || local?.time))}</Text>
-      <Divider />
-      <div dangerouslySetInnerHTML={{ __html: articleDetail?.content }}></div>
+      <Spin spinning={loading}>
+        <Title>{articleDetail.title}</Title>
+        <Text keyboard>{articleDetail.time}</Text>
+        <Divider />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: articleDetail.content,
+          }}
+        />
+      </Spin>
     </Typography>
   );
-}
+};
+
+export default Article;

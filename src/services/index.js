@@ -4,8 +4,10 @@ import * as article from './article';
 import * as wage from './wage';
 import * as attendance from './attendance';
 import * as resign from './resign';
+import * as logistics from './logistics';
+import * as askleave from './askleave';
 
-export const service = http;
+export const client = http;
 
 export default {
   user,
@@ -13,4 +15,6 @@ export default {
   wage,
   attendance,
   resign,
+  logistics,
+  askleave,
 };

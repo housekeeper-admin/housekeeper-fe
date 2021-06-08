@@ -11,7 +11,7 @@ export const handleAskLeaveProgress = vacationInfo => {
   const { id, enable } = vacationInfo;
   const res = client.post('/review', {
     vacationId: id,
-    code: !!enable,
+    code: enable,
   });
   return res;
 };

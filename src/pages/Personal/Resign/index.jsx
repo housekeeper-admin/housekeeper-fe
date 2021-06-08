@@ -1,22 +1,21 @@
 import React, { Fragment } from 'react';
-import { Row, Col, Typography } from 'antd';
+import { Row, Col, Typography, message } from 'antd';
 const { Title, Paragraph, Text } = Typography;
-import Form from '../../../components/Form';
-import { Resign_Form } from '../../../configs/form';
-import http from '../../../apis/axios';
-import { resign } from '../../../configs/port';
-import storage from '../../../apis/storage';
-import STORAGE from '../../../storage/storage-key-map.config';
-export default function Resign() {
-  const userInfo = storage.get({ key: STORAGE.USER_INFO }) || null;
+import GlobalContext from '@/context';
+import api from '@/services';
+import Form from '@/components/Form';
+import { Resign_Form } from '@/configs/form';
+
+const Resign = () => {
+  const { userInfo } = React.useContext(GlobalContext);
+  const { username, userId } = userInfo;
   const submit = url => {
     const getData = async value => {
-      console.log(value);
-      let res = await http.post(url, value);
-      if (res) {
-        return true;
+      try {
+        const res = await api.resign.newResignProgress(value);
+      } catch (error) {
+        message.error('发起离职流程失败，请稍后试试');
       }
-      return false;
     };
     return getData;
   };
@@ -70,10 +69,12 @@ export default function Resign() {
               backgroundColor: '#fff',
               boxShadow: '0 0 2px 2px #0b8062',
             }}
-            submit={submit(resign.form)}
-            option={Resign_Form(userInfo?.name, userInfo?.userId)}></Form>
+            submit={submit()}
+            option={Resign_Form(username, userId)}></Form>
         </Col>
       </Row>
     </Fragment>
   );
-}
+};
+
+export default Resign;

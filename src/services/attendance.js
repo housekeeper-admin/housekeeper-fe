@@ -6,12 +6,10 @@ import _ from 'lodash';
  * @param {string} search
  */
 export const getAttendanceList = search => {
-  const params =
-    search.trim() === ''
-      ? {}
-      : {
-          search: search,
-        };
+  const params = {};
+  if (search.trim()) {
+    params.search = search;
+  }
   const res = client.post('/queryAllNoMend', params);
   return res;
 };

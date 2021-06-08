@@ -3,19 +3,13 @@ import { Modal, PageHeader, Button, Space } from 'antd';
 import BraftEditor from 'braft-editor';
 import 'braft-editor/dist/index.css';
 import { useHistory } from 'react-router-dom';
-import http from '../../apis/axios';
-import storage from '../../apis/storage';
-import { article } from '../../configs/port';
-import STORAGE from '../../storage/storage-key-map.config';
-import throttle from '../../utils/throttle';
+import api from '@/services';
+import STG from '@/storage';
+import _ from 'lodash';
 export default function Communication() {
-  /**
-   * 在首次加载编辑器读取缓存的数据
-   */
-  const [content, setcontent] = useState(
-    BraftEditor.createEditorState(storage.get({ key: STORAGE.ARTICLE }) || '')
-  );
-  const [title, settitle] = useState('未命名');
+  const localData = STG.storage.get({ key: STG.STORAGE_KEY_MAP.ARTICLE }) || '';
+  const [content, setContent] = useState(BraftEditor.createEditorState(localData));
+  const [title, setTitle] = useState('未命名');
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState('请确认这是您本人的操作！');
@@ -31,8 +25,8 @@ export default function Communication() {
    */
   const handleChange = content => {
     let node = JSON.parse(content.toRAW());
-    settitle(node ? (node.blocks[0].text === '' ? '未命名' : node.blocks[0].text) : '未命名');
-    setcontent(content.toHTML());
+    setTitle(node ? (node.blocks[0].text === '' ? '未命名' : node.blocks[0].text) : '未命名');
+    setContent(content.toHTML());
   };
   const history = useHistory();
 
@@ -71,7 +65,7 @@ export default function Communication() {
     setModalText('您的文章将保存在您的浏览器缓存，在清除缓存前请备份您的信息！');
     setcallBack({
       func: () => {
-        Promise.resolve(storage.set({ key: STORAGE.ARTICLE, value: content }));
+        Promise.resolve(STG.storage.set({ key: STG.STORAGE_KEY_MAP.ARTICLE, value: content }));
       },
     });
     //TODO:添加请求函数在数据库存储临时数据
@@ -84,11 +78,9 @@ export default function Communication() {
     setModalText('您的文章将提交并被审核！');
     setcallBack({
       func: async () => {
-        let res = await http.post(article.new, {
+        const res = await api.article.newArticle({
           title: title,
           content: content,
-          time: Date.now(),
-          message: title,
         });
         if (res) return res;
         return false;
@@ -98,7 +90,7 @@ export default function Communication() {
   };
   const editorProps = {
     value: content,
-    onChange: throttle(handleChange, 1000),
+    onChange: _.throttle(handleChange, 1000),
     onHTMLChange: handleHTMLChange,
     placeholder: '写点有趣的东西吧~',
   };
@@ -108,7 +100,7 @@ export default function Communication() {
         className="site-page-header"
         onBack={() => history.push('/center')}
         title={title}
-        subTitle={storage.get({ key: STORAGE.USER_INFO })?.name || '游客'}
+        subTitle={STG.storage.get({ key: STG.STORAGE_KEY_MAP.USER_INFO })?.name || '游客'}
         style={{
           border: '1px solid #000',
           marginBottom: '6px',

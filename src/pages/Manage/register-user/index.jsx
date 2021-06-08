@@ -1,18 +1,17 @@
-import { Card, Col, Row } from 'antd';
-import React from 'react';
+import * as React from 'react';
+import { Card, Col, Row, message } from 'antd';
 import Form from 'components/Form';
-import api, { client } from '@/services';
-import { Logistics_Form } from '../../../configs/form';
-import { userPort } from '../../../configs/port';
+import api from '@/services';
+import { AddUser_Form } from '../../../configs/form';
+
 const AddUser = () => {
-  const submit = url => {
+  const submit = () => {
     const getData = async value => {
-      console.log(value);
-      let res = await client.post(url, value);
-      if (res) {
-        return true;
+      try {
+        const res = await api.user.registerNewMember(value);
+      } catch (error) {
+        message.error('添加新成员失败');
       }
-      return false;
     };
     return getData;
   };
@@ -20,7 +19,7 @@ const AddUser = () => {
     <div className="site-card-wrapper">
       <Row gutter={16}>
         <Col span={22}>
-          <Card title="后勤管理" bordered={false}>
+          <Card title="入职安排" bordered={false}>
             <Form
               style={{
                 width: '52%',
@@ -31,8 +30,8 @@ const AddUser = () => {
                 boxShadow: '0 0 6px 2px #0b8062',
                 backgroundColor: '#fff',
               }}
-              option={Logistics_Form()}
-              submit={submit(userPort.addUser)}
+              option={AddUser_Form()}
+              submit={submit()}
               result={{
                 slot: true,
                 msg: '返回',

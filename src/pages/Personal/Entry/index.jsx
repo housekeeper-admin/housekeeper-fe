@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import StepPart from '../../../components/StepPage';
-import OfferTemplate from '../../../middleware/OfferTemplate';
-import { Update_UserInfo_Form, Update_Pass_Form } from '../../../configs/form';
-import Form from '../../../components/Form';
+import * as React from 'react';
+import StepPart from '@/components/StepPage';
+import OfferTemplate from '@/middleware/OfferTemplate';
+import GlobalContext from '@/context';
+import { Update_UserInfo_Form, Update_Pass_Form } from '@/configs/form';
+import Form from '@/components/Form';
 import { useHistory } from 'react-router-dom';
-import http from '../../../apis/axios';
-import { userPort } from '../../../configs/port';
-import storage from '../../../apis/storage';
-import STORAGE from '../../../storage/storage-key-map.config';
+import { userPort } from '@/configs/port';
+import { client } from '@/services';
 /* 尚未解决多个ref的问题 */
-export default function Entry() {
+const Entry = () => {
   const history = useHistory();
-  const [stepStatus, setstepStatus] = useState([true, false, false]);
-  const [offer, setoffer] = useState({});
-  const userInfo = storage.get({ key: STORAGE.USER_INFO }) || null;
+  const [stepStatus, setStepStatus] = React.useState([true, false, false]);
+  const [offer, setOffer] = React.useState({});
+  const { userInfo } = React.useContext(GlobalContext);
+  const { username } = userInfo;
   const userId = userInfo?.userId,
     name = userInfo?.name;
-  useEffect(() => {
+  React.useEffect(() => {
     const getData = async () => {
-      setoffer({
-        name: storage.get(STORAGE.USER_INFO)?.name || '',
+      setOffer({
+        name: username,
       });
     };
     getData();
@@ -29,11 +29,11 @@ export default function Entry() {
   };
   const submit = (url, index) => {
     const getData = async value => {
-      let res = await http.post(url, value);
+      let res = await client.post(url, value);
       if (res) {
         let arr = stepStatus;
         arr[index] = true;
-        setstepStatus(arr);
+        setStepStatus(arr);
         return true;
       }
       return false;
@@ -81,4 +81,6 @@ export default function Entry() {
         }}></StepPart>
     </div>
   );
-}
+};
+
+export default Entry;

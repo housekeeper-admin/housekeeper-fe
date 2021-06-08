@@ -3,8 +3,8 @@ import _ from 'lodash';
 import { Input, Button, Form, Checkbox, notification, message } from 'antd';
 import FormField from 'components/antd/form-field';
 import { useHistory } from 'react-router-dom';
-import * as userApi from 'services/user';
-import hooks from '@/storage';
+import api from '@/services';
+import STG from '@/storage';
 import GlobalContext from '@/context';
 import './index.less';
 
@@ -33,8 +33,8 @@ const Login = () => {
   const onFinish = _.debounce(async values => {
     try {
       setLoading(true);
-      const res = await userApi.getUserLogin(values);
-      const value = hooks.useUserStorage(res);
+      const res = await api.user.getUserLogin(values);
+      const value = STG.setUserStorage(res);
       updateUserInfo({
         userId: value.userId,
         username: value.username,

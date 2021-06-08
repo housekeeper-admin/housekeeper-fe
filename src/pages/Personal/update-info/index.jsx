@@ -1,17 +1,17 @@
 import { Card, Col, Row } from 'antd';
 import React from 'react';
 import Form from 'components/Form';
-import { Update_UserInfo_Form, Update_Pass_Form } from '../../../configs/form';
-import http from '../../../apis/axios';
-import storage from '../../../apis/storage';
-import STORAGE from '../../../storage/storage-key-map.config';
-import { userPort } from '../../../configs/port';
+import { Update_UserInfo_Form, Update_Pass_Form } from '@/configs/form';
+import api from '@/services';
+import GlobalContext from '@/context';
+import { client } from '@/services';
+import { userPort } from '@/configs/port';
 export default function AddUser() {
-  const userInfo = storage.get({ key: STORAGE.USER_INFO }) || null;
+  const { userInfo } = React.useContext(GlobalContext);
   const submit = url => {
     const getData = async value => {
       console.log(value);
-      let res = await http.post(url, value);
+      let res = await client.post(url, value);
       if (res) {
         return true;
       }

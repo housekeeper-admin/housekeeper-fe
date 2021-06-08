@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Chart, Line, Point, Tooltip } from 'bizcharts';
-import { Row, Col, Divider, Steps, List, PageHeader } from 'antd';
-import Form from '../../../components/Form';
-import { Reissue_Form } from '../../../configs/form';
-import http from '../../../apis/axios';
-import storage from '../../../apis/storage';
-import STORAGE from '../../../storage/storage-key-map.config';
-import { attendance } from '../../../configs/port';
+import { Row, Col, Divider, Steps, List, PageHeader, message } from 'antd';
+import GlobalContext from '@/context';
+import api from '@/services';
+import Form from '@/components/Form';
+import { Reissue_Form } from '@/configs/form';
 
 const { Step } = Steps;
 const scale = {
@@ -21,26 +19,24 @@ const scale = {
   },
 };
 
-export default function Attendance() {
-  const [data, setdata] = useState([]);
-  const [stepList, setstepList] = useState([]);
-  const userInfo = storage.get({ key: STORAGE.USER_INFO }) || null;
-  const submit = url => {
+const Attendance = () => {
+  const [data, setData] = React.useState([]);
+  const [stepList, setStepList] = React.useState([]);
+  const { userInfo } = React.useContext(GlobalContext);
+  const submit = () => {
     const getData = async value => {
-      value.time = value.time.valueOf();
-      let res = await http.post(url, value);
-      if (res) {
-        return true;
+      try {
+        const res = await api.attendance.newAttendanceProgressInfo(value);
+      } catch (error) {
+        message.error('提交补签请求失败');
       }
-      return false;
     };
     return getData;
   };
-  useEffect(() => {
-    const getData = async () => {
-      let data = (await http.post(attendance.data)) || [];
-      let stepList = (await http.post(attendance.step)) || [];
-      //TODO:在这里做补签流程的状态处理
+  const getAttendanceData = async () => {
+    try {
+      const data = await api.attendance.getAttendanceProgressData();
+      const stepList = await api.attendance.getAttendanceSteps();
       stepList.map(item => {
         const stepTemple = [
           {
@@ -71,7 +67,7 @@ export default function Attendance() {
         item.steps = stepTemple;
         return item;
       });
-      let start = data.map(item => {
+      const start = data.map(item => {
         let date = new Date(Number(item.signin));
         return {
           time: date.getHours(),
@@ -79,7 +75,7 @@ export default function Attendance() {
           type: 'start',
         };
       });
-      let end = data.map(item => {
+      const end = data.map(item => {
         let date = new Date(Number(item.signout + 8 * 60 * 60 * 1000));
         return {
           time: date.getHours(),
@@ -87,10 +83,14 @@ export default function Attendance() {
           type: 'end',
         };
       });
-      setstepList(stepList);
-      setdata([...start, ...end]);
-    };
-    getData();
+      setStepList(stepList);
+      setData([...start, ...end]);
+    } catch (error) {
+      message.error('获取签到数据失败');
+    }
+  };
+  useEffect(() => {
+    getAttendanceData();
   }, []);
   return (
     <div
@@ -130,8 +130,8 @@ export default function Attendance() {
             padding: '60px 20px',
           }}>
           <Form
-            option={Reissue_Form(userInfo?.name, userInfo?.userId)}
-            submit={submit(attendance.form)}
+            option={Reissue_Form(userInfo.name, userInfo.userId)}
+            submit={submit()}
             result={{
               slot: true,
               msg: '返回',
@@ -171,4 +171,6 @@ export default function Attendance() {
       </Row>
     </div>
   );
-}
+};
+
+export default Attendance;

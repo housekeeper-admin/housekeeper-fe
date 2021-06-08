@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Layout, Button, Avatar, message, Typography, Space } from 'antd';
 import GlobalContext from '@/context';
-import UserAvatar from 'components/antd/user-avatar';
+import UserAvatar from '@/components/user-avatar';
 import { LoginOutlined } from '@ant-design/icons';
 import * as api from 'services/user';
 

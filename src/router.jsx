@@ -1,21 +1,16 @@
-import React, { Suspense } from "react";
-import { HashRouter, Route, Switch } from "react-router-dom";
-import { Spin } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import React, { Suspense } from 'react';
+import { HashRouter, Route, Switch } from 'react-router-dom';
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
-const Login = React.lazy(() => import("@/pages/login"));
-const DashBoard = React.lazy(() => import("@/pages/DashBoard"));
-const NoMatch = React.lazy(() => import("@/pages/Error/NoMatch"));
+const Login = React.lazy(() => import('@/pages/login'));
+const DashBoard = React.lazy(() => import('@/pages/dash-board'));
+const NoMatch = React.lazy(() => import('@/pages/error-page/no-match'));
 
 export const SpinIcon = () => (
   <Spin
     className="transform-center"
-    indicator={
-      <LoadingOutlined
-        style={{ fontSize: 24 }}
-        spin
-      />
-    }
+    indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}
   />
 );
 const Router = () => {
