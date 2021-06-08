@@ -1,39 +1,61 @@
-import React, { Fragment, useEffect, useState } from "react";
-import BasicTable from "components/Table";
-import http from "../../apis/axios";
-import { logistics } from "../../configs/port";
+import * as React from 'react';
+import { message, Spin } from 'antd';
+import BasicTable from 'components/Table';
+import api from '@/services';
+
 export default function Logistics() {
-  const [data, setdata] = useState([]);
-  const titleArr = ["部门编号", "服务类别", "联系电话", "部门地址"];
+  const [logisticsData, setLogisticsData] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const titleArr = ['部门编号', '服务类别', '联系电话', '部门地址'];
   const columns = [];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      let result = await http.post(logistics.list) || [];
-      setdata(result);
-    };
-    fetchData();
+  /**
+   *
+   * @param {string} search
+   */
+  const getLogisticsData = async search => {
+    try {
+      setLoading(true);
+      const result = (await api.logistics.getLogisticsList(search)) || [];
+      setLogisticsData(result);
+    } catch (error) {
+      message.error('获取数据失败');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  React.useEffect(() => {
+    getLogisticsData();
   }, []);
 
-  for (let item in data[0]) {
+  for (let item in logisticsData[0]) {
     columns.push({
-      dataIndex: item
+      dataIndex: item,
     });
   }
   columns.map((item, index) => {
     item.title = titleArr[index];
     return item;
   });
-  function search(value) {
-    const fetchData = async () => {
-      let result = await http.post(logistics.list, { search: value }) || [];
-      setdata(result);
-    };
-    fetchData();
-  }
+  /**
+   *
+   * @param {string} value
+   */
+  const searchLogisticsData = value => {
+    if (!value.trim()) {
+      message.warn('搜索内容不能为空');
+    }
+    getLogisticsData(value);
+  };
   return (
-    <Fragment>
-      <BasicTable data={data} columns={columns} search={search} placeholder="搜索指定部门" />
-    </Fragment>
+    <Spin spinning={loading}>
+      <BasicTable
+        data={logisticsData}
+        columns={columns}
+        search={searchLogisticsData}
+        placeholder="搜索指定部门"
+      />
+    </Spin>
   );
 }

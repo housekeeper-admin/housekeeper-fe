@@ -1,35 +1,52 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
-import { Typography, Divider } from "antd";
-import http from "../../apis/axios";
-import {article} from "../../configs/port";
-import "./index.less";
-import STORAGE from "../../configs/storage";
-import storage from "../../apis/storage";
-import format from "../../utils/format";
+import React, { useEffect, useState } from 'react';
+import { Typography, Divider, message, Spin } from 'antd';
+import { useParams } from 'react-router-dom';
+import api from '@/services';
+import moment from 'moment';
+import './style.less';
 const { Title, Text } = Typography;
 /**
- * 
+ * 文章展示页
  * @param {object} props 通过message路由传递过来的参数
  */
-export default function Message(props) {
-  const prop = props.location.state;
-  const local = storage.get({key:STORAGE.ARTICLE}) || null;
-  const [articleDetail, setArticleDetail] = useState(props.location.state);
-  useEffect(() => {
-    const fetchData = async () => {
-      let result = await http.post(article.detail, {txtId:prop?.txtId || local?.id }) || {};
+const Article = props => {
+  const article = props.location.state;
+  const { articleId } = useParams();
+  const [articleDetail, setArticleDetail] = useState(article);
+  const [loading, setLoading] = useState(false);
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const result = await api.article.getArticleDetail(articleId);
+      result.time = moment(Number(result.time)).format('YYYY-MM-DD hh:mm');
       setArticleDetail(result);
-    };
-    fetchData();
-  }, []);
-  console.log(articleDetail);
+    } catch (error) {
+      message.error('获取文章详情失败');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!article) {
+      fetchData();
+    }
+  }, [article]);
   return (
     <Typography className="article-card">
-      <Title>{articleDetail?.title || local?.title}</Title>
-      <Text keyboard>{format(Number(articleDetail?.time || local?.time))}</Text>
-      <Divider />
-      <div dangerouslySetInnerHTML = {{__html:articleDetail?.content}}></div>
-    </Typography >
+      <Spin spinning={loading}>
+        <Title>{articleDetail.title}</Title>
+        <Text keyboard>{articleDetail.time}</Text>
+        <Divider />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: articleDetail.content,
+          }}
+        />
+      </Spin>
+    </Typography>
   );
-}
+};
+
+export default Article;
