@@ -13,9 +13,7 @@ const Entry = () => {
   const [stepStatus, setStepStatus] = React.useState([true, false, false]);
   const [offer, setOffer] = React.useState({});
   const { userInfo } = React.useContext(GlobalContext);
-  const { username } = userInfo;
-  const userId = userInfo?.userId,
-    name = userInfo?.name;
+  const { username, userId, authority } = userInfo;
   React.useEffect(() => {
     const getData = async () => {
       setOffer({
@@ -25,7 +23,7 @@ const Entry = () => {
     getData();
   }, []);
   const callBack = () => {
-    setTimeout(history.push('/center', 3000));
+    setTimeout(history.push(`/center/${userId}/${authority}`, 3000));
   };
   const submit = (url, index) => {
     const getData = async value => {
@@ -59,7 +57,7 @@ const Entry = () => {
             borderRadius: '16px',
             boxShadow: '0 0 6px 2px #0b8062',
           },
-          option: Update_UserInfo_Form(name, userId),
+          option: Update_UserInfo_Form(username, userId),
           submit: submit(userPort.updateUserInfo, 1),
         })}
         step3={Form({
@@ -72,7 +70,7 @@ const Entry = () => {
             borderRadius: '16px',
             boxShadow: '0 0 6px 2px #0b8062',
           },
-          option: Update_Pass_Form(name, userId),
+          option: Update_Pass_Form(username, userId),
           submit: submit(userPort.updatePassword, 2),
         })}
         success={{

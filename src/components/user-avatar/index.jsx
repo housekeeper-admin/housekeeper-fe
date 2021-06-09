@@ -19,10 +19,18 @@ const GENDER = {
   },
 };
 
+/**
+ * 用户头像服务
+ * @param {object} props
+ * @param {number} props.userId
+ * @param {object} props.style  width和height请使用rem
+ * @param {boolean} props.noDesc 不需要个人信息卡片
+ */
 const UserAvatar = props => {
-  const propUserId = props.userId;
+  const { style = {}, noDesc = false } = props;
   const { userInfo } = React.useContext(GlobalContext);
-  const { sex, departmentId } = userInfo;
+  const { sex, departmentId, userId } = userInfo;
+  const propUserId = props.userId || userId;
   const [currentUserInfo, setCurrentUserInfo] = React.useState(userInfo);
   const [avatarConfig, setAvatarConfig] = React.useState({
     ...GENDER[sex],
@@ -55,14 +63,19 @@ const UserAvatar = props => {
         content={<UserDescription userInfo={currentUserInfo} />}
         trigger="click"
         visible={visible}
-        onVisibleChange={() => setVisible(!visible)}>
-        <div className="avatar-out-box">
+        onVisibleChange={() => !noDesc && setVisible(!visible)}>
+        <div
+          className="avatar-out-box"
+          style={{
+            width: `${style.width ? style.width + 0.4 : 4}rem`,
+            height: `${style.height ? style.height + 0.4 : 4}rem`,
+          }}>
           <Avatar
             {...config}
             className="user-avatar"
             style={{
-              width: '3.6rem',
-              height: '3.6rem',
+              width: `${style.width | 3.6}rem`,
+              height: `${style.height | 3.6}rem`,
             }}
           />
         </div>

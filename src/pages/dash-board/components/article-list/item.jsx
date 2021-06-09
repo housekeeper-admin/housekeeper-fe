@@ -1,30 +1,32 @@
-import React from 'react';
+import * as React from 'react';
+import { List } from 'antd';
+import { Link } from 'react-router-dom';
 import UserAvatar from '@/components/user-avatar';
-import { useHistory } from 'react-router-dom';
-import hooks from '@/storage';
-import { List, Button } from 'antd';
 
 const ArticleItem = List.Item;
 
 const Item = props => {
   const { article } = props;
-  const { title, userId } = article;
-  const history = useHistory();
-  const handleMore = item => {
-    history.push({
-      pathname: `/article/${item.txtId}`,
-      state: item,
-    });
-    hooks.useArticleStorage(item);
-  };
+  const { title, userId, txtId } = article;
   return (
     <ArticleItem
       actions={[
-        <Button key={article.txtId} onClick={handleMore}>
+        <Link key={article.txtId} to={`/article/${txtId}`}>
           查看全文
-        </Button>,
+        </Link>,
       ]}>
-      <ArticleItem.Meta avatar={<UserAvatar userId={userId} />} title={title} />
+      <ArticleItem.Meta
+        avatar={
+          <UserAvatar
+            userId={userId}
+            style={{
+              width: 2.4,
+              height: 2.4,
+            }}
+          />
+        }
+        title={title}
+      />
     </ArticleItem>
   );
 };

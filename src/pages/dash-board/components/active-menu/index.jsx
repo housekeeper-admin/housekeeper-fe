@@ -13,7 +13,7 @@ const getMenuList = userInfo => {
   const { userId, departmentId } = userInfo;
   return [
     {
-      name: '修改个人信息',
+      name: '个人信息',
       avatar: <InteractionTwoTone />,
       link: `/personal/${userId}/update`,
     },

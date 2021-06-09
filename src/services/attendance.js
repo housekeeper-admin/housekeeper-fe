@@ -49,6 +49,6 @@ export const getAttendanceSteps = () => {
 export const newAttendanceProgressInfo = attendanceInfo => {
   const params = _.clone(attendanceInfo);
   params.time = params.time.valueOf();
-  const res = client.post('/insertMend');
+  const res = client.post('/insertMend', params);
   return res;
 };

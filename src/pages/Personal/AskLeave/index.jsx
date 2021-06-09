@@ -5,6 +5,7 @@ import IntervalChart from 'components/chart/interval-chart';
 import Form from 'components/Form';
 import api from '@/services';
 import GlobalContext from '@/context';
+import './style.less';
 import { AskLeave_Form } from '../../../configs/form';
 
 const AskLeave = () => {
