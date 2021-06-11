@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { Form, Input, DatePicker, Select, Button, message, Tooltip, Divider } from 'antd';
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Form, Input, DatePicker, Select, Button, message, Divider } from 'antd';
 import moment from 'moment';
+import _ from 'lodash';
 import api from '@/services';
 import FormField from '@/components/antd/form-field';
 import PreviewResult from './preview-result';
-
-const { Option } = Select;
 
 const ReissueTypeOptions = {
   'no-login-reissue': '未登录补签',
@@ -27,18 +25,17 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 const ReissueForm = () => {
-  const [loading, setLoading] = React.useState(false);
+  const previewRef = React.useRef(null);
   const [previewVisible, setPreviewVisible] = React.useState(false);
-  const [resData, setResData] = React.useState(initDefaultFormValue);
   const [formRef] = Form.useForm();
 
   const validateFields = async () => {
     await formRef.validateFields();
-
     setPreviewVisible(true);
     const reissueValue = formRef.getFieldsValue(true);
-    setResData({
-      ...reissueValue,
+    previewRef.current.setPreviewData({
+      cause: reissueValue.cause,
+      time: reissueValue.time,
       type: ReissueTypeOptions[reissueValue.type],
     });
   };
@@ -46,6 +43,7 @@ const ReissueForm = () => {
   const submit = async () => {
     await formRef.validateFields();
     try {
+      previewRef.current.setLoading(true);
       const reissueValue = formRef.getFieldsValue(true);
       const { type, time, cause } = reissueValue;
       const params = {
@@ -56,19 +54,20 @@ const ReissueForm = () => {
     } catch (error) {
       message.error('发送补签信息失败');
     } finally {
-      setLoading(false);
+      previewRef.current.setLoading(false);
     }
   };
+
+  const ReissueTypeOpts = Object.entries(ReissueTypeOptions).map(item => ({
+    label: item[1],
+    value: item[0],
+  }));
   return (
     <React.Fragment>
       <Divider>补签信息表</Divider>
       <Form {...layout} initialValues={initDefaultFormValue} form={formRef}>
         <FormField label="补签类型" name="type" required>
-          <Select>
-            <Option value="no-login-reissue">未登录系统</Option>
-            <Option value="end-month-reissue">月底补签</Option>
-            <Option value="business-trip-reissue">出差补签</Option>
-          </Select>
+          <Select options={ReissueTypeOpts} />
         </FormField>
         <FormField label="补签原因" name="cause" required>
           <Input.TextArea
@@ -78,7 +77,11 @@ const ReissueForm = () => {
             }}
           />
         </FormField>
-        <FormField label="补签时间" name="time" required>
+        <FormField
+          label="补签时间"
+          name="time"
+          required
+          tooltip={<div>仅允许补签本周的签到状态</div>}>
           <DatePicker
             disabledDate={disabledDate}
             format="YYYY-MM-DD HH:mm"
@@ -86,14 +89,6 @@ const ReissueForm = () => {
               format: 'HH:mm',
             }}
           />
-          <Tooltip title="仅允许补签本周的签到状态">
-            <QuestionCircleOutlined
-              style={{
-                marginLeft: 4,
-                fontSize: 20,
-              }}
-            />
-          </Tooltip>
         </FormField>
         <FormField
           style={{
@@ -105,10 +100,9 @@ const ReissueForm = () => {
         </FormField>
       </Form>
       <PreviewResult
+        ref={previewRef}
         submit={submit}
         visible={previewVisible}
-        previewData={resData}
-        loading={loading}
         setVisible={setPreviewVisible}
       />
     </React.Fragment>

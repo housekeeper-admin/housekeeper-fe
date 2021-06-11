@@ -2,15 +2,13 @@ import * as React from 'react';
 import { List, Card, Row, Col, message } from 'antd';
 import PieChart from 'components/chart/pie-chart';
 import IntervalChart from 'components/chart/interval-chart';
-import Form from 'components/Form';
+import AskleaveForm from './components/askleave-form';
 import api from '@/services';
 import GlobalContext from '@/context';
 import './style.less';
-import { AskLeave_Form } from '../../../configs/form';
 
 const AskLeave = () => {
   const { userInfo } = React.useContext(GlobalContext);
-  const { userId, username } = userInfo;
   const [pieData, setPieData] = React.useState([]);
   const getAskLeavePieData = async () => {
     try {
@@ -74,22 +72,7 @@ const AskLeave = () => {
         />
       </Col>
       <Col span={12} offset={2}>
-        <Form
-          style={{
-            width: '100%',
-            margin: '20px auto',
-            border: '1px solid #26CB98',
-            padding: '40px 20px',
-            borderRadius: '16px',
-            boxShadow: '0 0 6px 2px #0b8062',
-            backgroundColor: '#fff',
-          }}
-          option={AskLeave_Form(username, userId)}
-          submit={submit()}
-          result={{
-            slot: true,
-            msg: '返回',
-          }}></Form>
+        <AskleaveForm />
       </Col>
     </Row>
   );

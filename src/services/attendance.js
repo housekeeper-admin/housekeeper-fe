@@ -1,5 +1,6 @@
 import client from './http';
 import _ from 'lodash';
+import moment from 'moment';
 
 /**
  * 签到列表
@@ -48,7 +49,7 @@ export const getAttendanceSteps = () => {
  */
 export const newAttendanceProgressInfo = attendanceInfo => {
   const params = _.clone(attendanceInfo);
-  params.time = params.time.valueOf();
+  params.time = moment(params.time).valueOf();
   const res = client.post('/insertMend', params);
   return res;
 };

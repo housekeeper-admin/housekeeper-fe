@@ -1,5 +1,6 @@
 import client from './http';
 import _ from 'lodash';
+import moment from 'moment';
 
 /**
  *
@@ -41,8 +42,8 @@ export const getAskLeaveDateData = () => {
  */
 export const newAskLeaveProgress = askLeaveData => {
   const params = _.clone(askLeaveData);
-  params.starttime = params.time[0].valueOf();
-  params.endtime = params.time[1].valueOf();
+  params.starttime = moment(params.time[0]).valueOf();
+  params.endtime = moment(params.time[1]).valueOf();
   delete params.time;
   const res = client.post('/askleave', params);
   return res;

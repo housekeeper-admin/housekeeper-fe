@@ -4,6 +4,7 @@ import { Row, Col, Divider, Steps, List, PageHeader, message } from 'antd';
 import GlobalContext from '@/context';
 import api from '@/services';
 import ReissueForm from './components/reissue-form';
+import ReissueStepList from './components/reissue-step-list';
 import './style.less';
 
 const { Step } = Steps;
@@ -28,7 +29,7 @@ const Attendance = () => {
     try {
       const data = await api.attendance.getAttendanceProgressData();
       const stepList = await api.attendance.getAttendanceSteps();
-      stepList.map(item => {
+      const steps = stepList.map(item => {
         const stepTemple = [
           {
             title: '提交成功',
@@ -74,7 +75,7 @@ const Attendance = () => {
           type: 'end',
         };
       });
-      setStepList(stepList);
+      setStepList(steps);
       setData([...start, ...end]);
     } catch (error) {
       message.error('获取签到数据失败');
@@ -121,7 +122,6 @@ const Attendance = () => {
             boxShadow: '0px 2px 4px 2px #69c0ff',
             padding: '40px 20px',
             overflowY: 'scroll',
-            scrollbarWidth: 0,
           }}>
           <ReissueForm />
         </Col>
@@ -137,24 +137,7 @@ const Attendance = () => {
             padding: '20px',
             marginTop: '30px',
           }}>
-          <PageHeader
-            className="site-page-header"
-            title="补签卡申请记录"
-            subTitle="(仅展示最近一周的记录)"
-          />
-          <List
-            itemLayout="horizontal"
-            dataSource={stepList}
-            renderItem={(item, index) => (
-              <List.Item key={index}>
-                <Steps current={item.current} status={item.status}>
-                  {item.steps.map((item, index) => (
-                    <Step title={item.title} key={index} />
-                  ))}
-                </Steps>
-              </List.Item>
-            )}
-          />
+          <ReissueStepList stepList={stepList} />
         </Col>
       </Row>
     </div>
