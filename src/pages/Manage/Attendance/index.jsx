@@ -22,7 +22,6 @@ export default function Attendance() {
       });
       setData(list);
     } catch (error) {
-      console.log(error);
       message.error('获取签到列表失败');
     }
   };
@@ -36,11 +35,12 @@ export default function Attendance() {
    */
   const handleSelect = async (arr, code) => {
     try {
-      const res = await api.attendance.handleAttendanceProgress({
+      await api.attendance.handleAttendanceProgress({
         handlePersonList: arr,
         status: code ? 1 : 2,
         username: userInfo.username,
       });
+      message.success('处理成功');
     } catch (error) {
       message.error('处理补签请求失败');
     }
