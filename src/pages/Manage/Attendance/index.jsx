@@ -17,11 +17,12 @@ export default function Attendance() {
           userId: item.userId,
           username: item.username,
           cause: item.cause,
-          time: moment(Number(item.signin)).format('YYYY-MM-DD hh:mm'),
+          time: moment(Number(item.csignin)).format('YYYY-MM-DD hh:mm'),
         };
       });
       setData(list);
     } catch (error) {
+      console.log(error);
       message.error('获取签到列表失败');
     }
   };

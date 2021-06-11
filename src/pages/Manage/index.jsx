@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import GlobalContext from '@/context';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 const NoAuth = React.lazy(() => import('@/pages/error-page/no-auth'));
 const Attendance = React.lazy(() => import('@/pages/manage/attendance'));
@@ -11,8 +12,10 @@ const AddWage = React.lazy(() => import('@/pages/manage/add-wage'));
 const NoMatch = React.lazy(() => import('@/pages/error-page/no-match'));
 
 const Router = () => {
+  const { userInfo } = React.useContext(GlobalContext);
   return (
     <Switch>
+      {!userInfo.authority && <Redirect to="/noauth" />}
       <Route
         name="Attendance"
         path="/manage/:userId/:authority/:departmentId/attendance"

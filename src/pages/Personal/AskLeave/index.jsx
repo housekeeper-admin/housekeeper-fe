@@ -21,13 +21,15 @@ const AskLeave = () => {
             count: Math.floor(Number(item.time) / 24 / 60 / 60 / 1000) || 0,
           };
           sumTime += temp.count;
+          return temp;
         })
         .map(item => ({
           ...item,
-          percent: (item.count / sumTime).toFixed(2),
+          percent: (item.count / sumTime).toFixed(2) * 1,
         }));
       setPieData(res);
     } catch (error) {
+      console.error(error);
       message.error('获取请假展示图失败');
     }
   };
@@ -44,20 +46,6 @@ const AskLeave = () => {
       content: <IntervalChart data={pieData} row="item" col="count" height={220} />,
     },
   ];
-  const submit = () => {
-    const getData = async value => {
-      try {
-        const res = await api.askleave.newAskLeaveProgress({
-          type: value.type,
-          cause: value.cause,
-          time: value.reissueTime,
-        });
-      } catch (error) {
-        message.error('提交请假流程失败');
-      }
-    };
-    return getData;
-  };
   return (
     <Row>
       <Col span={8}>

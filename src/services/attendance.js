@@ -6,7 +6,7 @@ import moment from 'moment';
  * 签到列表
  * @param {string} search
  */
-export const getAttendanceList = search => {
+export const getAttendanceList = (search = '') => {
   const params = {};
   if (search.trim()) {
     params.search = search;
