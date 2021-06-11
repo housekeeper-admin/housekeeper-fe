@@ -17,7 +17,7 @@ export default function Attendance() {
           userId: item.userId,
           username: item.username,
           cause: item.cause,
-          time: moment(Number(item.signin)).format('YYYY-MM-DD hh:mm'),
+          time: moment(Number(item.csignin)).format('YYYY-MM-DD hh:mm'),
         };
       });
       setData(list);
@@ -35,11 +35,12 @@ export default function Attendance() {
    */
   const handleSelect = async (arr, code) => {
     try {
-      const res = await api.attendance.handleAttendanceProgress({
+      await api.attendance.handleAttendanceProgress({
         handlePersonList: arr,
         status: code ? 1 : 2,
         username: userInfo.username,
       });
+      message.success('处理成功');
     } catch (error) {
       message.error('处理补签请求失败');
     }

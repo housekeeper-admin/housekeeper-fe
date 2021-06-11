@@ -1,11 +1,12 @@
 import client from './http';
 import _ from 'lodash';
+import moment from 'moment';
 
 /**
  * 签到列表
  * @param {string} search
  */
-export const getAttendanceList = search => {
+export const getAttendanceList = (search = '') => {
   const params = {};
   if (search.trim()) {
     params.search = search;
@@ -48,7 +49,7 @@ export const getAttendanceSteps = () => {
  */
 export const newAttendanceProgressInfo = attendanceInfo => {
   const params = _.clone(attendanceInfo);
-  params.time = params.time.valueOf();
-  const res = client.post('/insertMend');
+  params.time = moment(params.time).valueOf();
+  const res = client.post('/insertMend', params);
   return res;
 };

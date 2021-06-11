@@ -11,7 +11,11 @@ const { Title, Text } = Typography;
  * @param {object} props 通过message路由传递过来的参数
  */
 const Article = props => {
-  const article = props.location.state;
+  const article = {
+    title: '',
+    time: Date.now(),
+    content: '',
+  };
   const { articleId } = useParams();
   const [articleDetail, setArticleDetail] = useState(article);
   const [loading, setLoading] = useState(false);
@@ -29,10 +33,8 @@ const Article = props => {
   };
 
   useEffect(() => {
-    if (!article) {
-      fetchData();
-    }
-  }, [article]);
+    fetchData();
+  }, [articleId]);
   return (
     <Typography className="article-card">
       <Spin spinning={loading}>

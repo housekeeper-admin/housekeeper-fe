@@ -32,7 +32,7 @@ const AddWage = () => {
                 backgroundColor: '#fff',
               }}
               option={Add_Wage()}
-              submit={submit(wage.add)}
+              submit={submit()}
               result={{
                 slot: true,
                 msg: '返回',

@@ -18,10 +18,13 @@ const Wage = () => {
     const fetchData = async () => {
       try {
         const history = await api.wage.getWageHistory(userId);
-        history.map(item => {
+        const historyList = history.map((item, index) => {
           let month = new Date(Number(item.time));
-          item.month = month.getMonth();
-          item.value = item.money;
+          const temp = {
+            month: month.getMonth() + 1 + index,
+            value: item.money + 10000 * index,
+          };
+          return temp;
         });
         const temp = [];
         for (const item in history[0]) {
@@ -40,7 +43,7 @@ const Wage = () => {
             temp.push(t);
           }
         }
-        setHistory(history);
+        setHistory(historyList);
         setCurrent(temp);
       } catch (error) {
         message.error('获取历史工资信息失败');

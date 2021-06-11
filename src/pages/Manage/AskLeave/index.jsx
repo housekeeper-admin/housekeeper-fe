@@ -5,6 +5,7 @@ import api from '@/services';
 
 const AskLeave = () => {
   const [data, setData] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
   const getAskleaveList = async () => {
     const result = (await api.askleave.getAskLeaveProgressList()) || [];
     result.map(item => {
@@ -15,12 +16,16 @@ const AskLeave = () => {
   };
   const handleProgress = async ({ id, enable = false }) => {
     try {
+      setLoading(true);
       await api.askleave.handleAskLeaveProgress({
         id,
         enable,
       });
+      message.success('处理成功啦');
     } catch (error) {
       message.error('处理失败，请稍后试试吧');
+    } finally {
+      setLoading(false);
     }
   };
   React.useEffect(() => {
@@ -49,6 +54,7 @@ const AskLeave = () => {
                 <Space>
                   <Button
                     type="primary"
+                    loading={loading}
                     onClick={() =>
                       handleProgress({
                         id: item.vacationId,
@@ -59,6 +65,7 @@ const AskLeave = () => {
                   </Button>
                   <Button
                     type="primary"
+                    loading={loading}
                     onClick={() =>
                       handleProgress({
                         id: item.vacationId,

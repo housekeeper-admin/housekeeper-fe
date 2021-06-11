@@ -26,7 +26,6 @@ const DashHeader = () => {
       localStorage.clear();
       history.replace('/login');
     } catch (error) {
-      console.log(error);
       message.error('签退失败，请稍后试试哦~');
     } finally {
       setLoading(false);
@@ -40,6 +39,18 @@ const DashHeader = () => {
         backgroundColor: '#fffff8',
       }}>
       <UserAvatar departmentId={departmentId} username={username} />
+      <Button
+        style={{
+          position: 'absolute',
+          top: '1rem',
+          right: 20,
+        }}
+        onClick={handleLoginOut}
+        shape="round"
+        icon={<LoginOutlined />}
+        type="primary">
+        注销登录
+      </Button>
     </Header>
   );
 };

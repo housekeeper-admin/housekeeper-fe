@@ -2,14 +2,13 @@ import * as React from 'react';
 import { List, Card, Row, Col, message } from 'antd';
 import PieChart from 'components/chart/pie-chart';
 import IntervalChart from 'components/chart/interval-chart';
-import Form from 'components/Form';
+import AskleaveForm from './components/askleave-form';
 import api from '@/services';
 import GlobalContext from '@/context';
-import { AskLeave_Form } from '../../../configs/form';
+import './style.less';
 
 const AskLeave = () => {
   const { userInfo } = React.useContext(GlobalContext);
-  const { userId, username } = userInfo;
   const [pieData, setPieData] = React.useState([]);
   const getAskLeavePieData = async () => {
     try {
@@ -22,13 +21,15 @@ const AskLeave = () => {
             count: Math.floor(Number(item.time) / 24 / 60 / 60 / 1000) || 0,
           };
           sumTime += temp.count;
+          return temp;
         })
         .map(item => ({
           ...item,
-          percent: (item.count / sumTime).toFixed(2),
+          percent: (item.count / sumTime).toFixed(2) * 1,
         }));
       setPieData(res);
     } catch (error) {
+      console.error(error);
       message.error('获取请假展示图失败');
     }
   };
@@ -45,20 +46,6 @@ const AskLeave = () => {
       content: <IntervalChart data={pieData} row="item" col="count" height={220} />,
     },
   ];
-  const submit = () => {
-    const getData = async value => {
-      try {
-        const res = await api.askleave.newAskLeaveProgress({
-          type: value.type,
-          cause: value.cause,
-          time: value.reissueTime,
-        });
-      } catch (error) {
-        message.error('提交请假流程失败');
-      }
-    };
-    return getData;
-  };
   return (
     <Row>
       <Col span={8}>
@@ -73,22 +60,7 @@ const AskLeave = () => {
         />
       </Col>
       <Col span={12} offset={2}>
-        <Form
-          style={{
-            width: '100%',
-            margin: '20px auto',
-            border: '1px solid #26CB98',
-            padding: '40px 20px',
-            borderRadius: '16px',
-            boxShadow: '0 0 6px 2px #0b8062',
-            backgroundColor: '#fff',
-          }}
-          option={AskLeave_Form(username, userId)}
-          submit={submit()}
-          result={{
-            slot: true,
-            msg: '返回',
-          }}></Form>
+        <AskleaveForm />
       </Col>
     </Row>
   );
