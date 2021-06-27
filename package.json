@@ -97,6 +97,7 @@
         "webpack-cli": "^3.3.11",
         "webpack-dashboard": "^3.3.1",
         "webpack-dev-server": "^3.10.3",
+        "webpack-jarvis": "^0.3.2",
         "webpack-merge": "^4.2.2"
     },
     "husky": {

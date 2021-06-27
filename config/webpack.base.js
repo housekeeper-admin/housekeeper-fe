@@ -8,6 +8,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const Jarvis = require("webpack-jarvis");
 
 
 //传入自定义配置
@@ -184,7 +185,10 @@ module.exports = merge(webpackConfig, {
         from: 'public',
         ignore: ['index.html']
       }
-    ])
+    ]),
+    new Jarvis({
+      port: 1337 // optional: set a port
+    })
   ],
   optimization: {}
 });
