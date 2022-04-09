@@ -2,7 +2,6 @@ import * as React from 'react';
 import moment from 'moment';
 import { Modal, Descriptions, Typography, Tag } from 'antd';
 import UserModalTitle from '@/components/user-modal-title';
-import { initDefaultFormValue, ReissueTypeOptions } from './reissue-form';
 import GlobalContext from '@/context';
 
 const Item = Descriptions.Item;

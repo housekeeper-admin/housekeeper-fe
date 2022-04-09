@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react';
-import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Spin } from 'antd';
+import DashBoard from '@/pages/dash-board';
 import { LoadingOutlined } from '@ant-design/icons';
 const Login = React.lazy(() => import('@/pages/login'));
-const DashBoard = React.lazy(() => import('@/pages/dash-board'));
 const NoMatch = React.lazy(() => import('@/pages/error-page/no-match'));
 
 export const SpinIcon = () => (
@@ -15,13 +15,13 @@ export const SpinIcon = () => (
 const Router = () => {
   return (
     <Suspense fallback={<SpinIcon />}>
-      <HashRouter>
+      <BrowserRouter>
         <Switch>
           <Route name="Login" path="/login" component={Login} />
           <Route name="DashBoard" path="/" component={DashBoard} />
           <Route name="NoMatch" path="*" component={NoMatch} />
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
     </Suspense>
   );
 };

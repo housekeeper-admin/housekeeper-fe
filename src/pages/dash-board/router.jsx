@@ -19,7 +19,7 @@ const Router = () => {
       <Route name="Center" path="/center/:userId/:authority" component={Center} />
       <Route name="Articles" path="/article/:articleId" component={Article} />
       <Route name="Editor" path="/editor/:userId" component={Editor} />
-      {/* <Route name="Logistics" path="/logistics" component={Logistics} /> */}
+      <Route name="Logistics" path="/logistics" component={Logistics} />
       <Route name="Manage" path="/manage/:userId/:authority/:departmentId" component={Manage} />
       <Route name="Personal" path="/personal/:userId" component={Personal} />
       <Route name="NoAuth" path="/noauth" component={NoAuth} />
