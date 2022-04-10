@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 
 const NoAuth = React.lazy(() => import('@/pages/error-page/no-auth'));
 const Attendance = React.lazy(() => import('@/pages/manage/attendance'));
-const AskLeave = React.lazy(() => import('@/pages/manage/askleave'));
+const AskLeave = React.lazy(() => import('@/pages/manage/ask-leave'));
 const Resign = React.lazy(() => import('@/pages/manage/resign'));
 const AddUser = React.lazy(() => import('@/pages/manage/register-user'));
 const Logistics = React.lazy(() => import('@/pages/manage/logistics'));

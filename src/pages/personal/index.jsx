@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 const NoAuth = React.lazy(() => import('@/pages/error-page/no-auth'));
 const Attendance = React.lazy(() => import('@/pages/personal/attendance'));
-const AskLeave = React.lazy(() => import('@/pages/personal/askleave'));
+const AskLeave = React.lazy(() => import('@/pages/personal/ask-leave'));
 const Resign = React.lazy(() => import('@/pages/personal/resign'));
 const Wage = React.lazy(() => import('@/pages/personal/Wage'));
 const Entry = React.lazy(() => import('@/pages/personal/entry'));
