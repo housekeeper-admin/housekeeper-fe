@@ -1,10 +1,9 @@
-# [管家婆企业人力资源管理系统📊](https://github.com/coding-bai/Housekeeper-admin)
+# 管家婆企业人力资源管理系统📊
 
 > 项目主要依赖：react, react-router-dom, antd, bizchart, axios
 
 > 对应的后端代码https://github.com/wooyeonicon/house-keeper-company
 
->[👀github地址](https://github.com/coding-bai/Housekeeper-admin)
 
 
 ## 项目介绍📰
